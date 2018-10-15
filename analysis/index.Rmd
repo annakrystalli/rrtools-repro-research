@@ -6,4 +6,6 @@ output:
     toc: false
 ---
 
-Welcome to my research website.
+## Reproducible Research in R with `rrtools`
+
+### 31st October, Northwest Universities R Day
