@@ -15,14 +15,9 @@ navbar:
           href: intro.html
         - text: "Create a compendium"
           href: create-compendium.html
-        - text: "Prepare compendium for GitHub"
-          href: version-control-sharing.html 
-        - text: "Set up analysis"
-          href: analysis.html   
-        - text: "---------"
         - text: "Manage functionality as a package"
           href: package.html
-        - text: "Create paper"
+        - text: "Create a reproducible paper"
           href: paper.html
   right:
     - text: "Get Workshop Data"

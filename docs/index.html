@@ -15,32 +15,15 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
 <script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
 <script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
@@ -179,23 +162,51 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">rrtools-repro-research</a>
+      <a class="navbar-brand" href="index.html">Reproducible Research with rrtools</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
 </li>
-<li>
-  <a href="about.html">About</a>
-</li>
-<li>
-  <a href="license.html">License</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Handouts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workshop Sections</li>
+    <li>
+      <a href="intro.html">Welcome</a>
+    </li>
+    <li>
+      <a href="create-compendium.html">Create a compendium</a>
+    </li>
+    <li>
+      <a href="version-control-sharing.html">Prepare compendium for GitHub</a>
+    </li>
+    <li>
+      <a href="analysis.html">Set up analysis</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="package.html">Manage functionality as a package</a>
+    </li>
+    <li>
+      <a href="paper.html">Create paper</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jdblischak/workflowr">
+  <a href="https://bit.ly/rrtools_wks">Get Workshop Data</a>
+</li>
+<li>
+  <a href="https://github.com/annakrystalli/rrtools-repro-research">
     <span class="fa fa-github"></span>
      
   </a>
@@ -221,7 +232,7 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-10-15</p>
+<p><strong>Last updated:</strong> 2018-10-30</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -231,17 +242,28 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/572d00b0a20ad9c41574091783ca726b85faa0b2" target="_blank">572d00b</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/a71b71a10a08037ccea7d8145898fd0345f59b5b" target="_blank">a71b71a</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/data/
+    Ignored:    analysis/package.Rmd
+    Ignored:    assets/
+    Ignored:    docs/.DS_Store
+
+Untracked files:
+    Untracked:  analysis/paper.Rmd
+    Untracked:  docs/assets/Boettiger-2018-Ecology_Letters.pdf
+    Untracked:  docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
 
 Unstaged changes:
-    Modified:   README.md
+    Modified:   analysis/analysis.Rmd
+    Modified:   analysis/create-compendium.Rmd
     Modified:   analysis/index.Rmd
-    Deleted:    output/README.md
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -274,6 +296,40 @@ Message
 <tbody>
 <tr>
 <td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/921a7f864708008758ca207fa2761de380f22642/docs/index.html" target="_blank">921a7f8</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-30
+</td>
+<td style="text-align:left;">
+commit docs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/99529cf7f19885ead7166bb556f3820dab656af5/analysis/index.Rmd" target="_blank">99529cf</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-15
+</td>
+<td style="text-align:left;">
+update readme with NW R day details, add workshop index
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Rmd
 </td>
 <td style="text-align:left;">
@@ -299,6 +355,11 @@ Start workflowr project.
 <div id="st-october-northwest-universities-r-day" class="section level3">
 <h3>31st October, Northwest Universities R Day</h3>
 </div>
+<div id="setup" class="section level3">
+<h3>Setup</h3>
+<p>System Requirements:</p>
+<p>Pandoc (&gt;= 1.17.2)</p>
+</div>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -317,7 +378,7 @@ footer is added to webpages before the MathJax javascript. -->
 <p>
   This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
   analysis was created with
-  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.0.1
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
 </p>
 <hr>
 
