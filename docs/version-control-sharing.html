@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Sharing through GitHub</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">rrtools-repro-research</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Sharing through GitHub</h1>
+
+</div>
+
+
+<div id="version-control" class="section level2">
+<h2>Version control</h2>
+</div>
+<div id="set-up-github-pat" class="section level2">
+<h2>Set up GITHUB PAT</h2>
+<p>You’ll need a Personal Authorisation Token (PAT) from GitHub to be able to interact with GitHub through R.</p>
+<p>Use:</p>
+<pre class="r"><code>usethis::browse_github_pat()</code></pre>
+<p>to open up the GitHub panel to generate your PAT.</p>
+<p><img src="assets/browse_github.png" height="300px"></p>
+<hr />
+<p>Copy the generated PAT to paste into your <code>.Renviron</code> file as system variable <code>GITHUB_PAT</code>.</p>
+<p>You open and edit your <code>.Renviron</code> file with:</p>
+<pre class="r"><code>usethis::edit_r_environ()</code></pre>
+<p>Paste it into your <code>.Renviron</code> file as system variable <code>GITHUB_PAT</code>, save and close.</p>
+<p><img src="assets/GITHUB_PAT.png" height="300px"></p>
+<div id="create-github-repository" class="section level3">
+<h3>Create GitHub repository</h3>
+<pre class="r"><code>usethis::use_github()</code></pre>
+<pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
+● Check title and description
+  Name:        rrcompendium
+  Description: Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools
+  </code></pre>
+<pre><code>Are title and description ok?
+1: Not now
+2: Definitely
+3: Nope
+</code></pre>
+<pre><code>✔ Creating GitHub repository
+✔ Adding GitHub remote
+✔ Adding GitHub links to DESCRIPTION
+✔ Setting URL field in DESCRIPTION to &#39;https://github.com/annakrystalli/rrcompendium&#39;
+✔ Setting BugReports field in DESCRIPTION to &#39;https://github.com/annakrystalli/rrcompendium/issues&#39;
+✔ Pushing to GitHub and setting remote tracking branch
+✔ Opening URL https://github.com/annakrystalli/rrcompendium</code></pre>
+</div>
+</div>
+<div id="readme" class="section level2">
+<h2>README</h2>
+<pre class="r"><code>rrtools::use_readme_rmd()</code></pre>
+<pre><code>
+✔ Creating &#39;README.Rmd&#39; from template.
+✔ Adding &#39;README.Rmd&#39; to `.Rbuildignore`.
+● Modify &#39;README.Rmd&#39;
+✔ Rendering README.Rmd to README.md for GitHub.
+✔ Adding code of conduct.
+✔ Creating &#39;CONDUCT.md&#39; from template.
+✔ Adding &#39;CONDUCT.md&#39; to `.Rbuildignore`.
+✔ Adding instructions to contributors.
+✔ Creating &#39;CONTRIBUTING.md&#39; from template.
+✔ Adding &#39;CONTRIBUTING.md&#39; to `.Rbuildignore`.
+</code></pre>
+<p>This generates <a href="README.Rmd">README.Rmd</a> and renders it to <a href="README.md">README.md</a>, ready to display on GitHub. It contains:</p>
+<ul>
+<li>a template citation to show others how to cite your project.</li>
+<li>license information for the text, figures, code and data in your compendium</li>
+</ul>
+<p>The call also adds two other markdown files:</p>
+<ul>
+<li>a code of conduct for users <a href="CONDUCT.md">CONDUCT.md</a></li>
+<li>basic instructions for people who want to contribute to our compendium <a href="CONTRIBUTING.md">CONTRIBUTING.md</a>.</li>
+</ul>
+<pre><code>---
+output: github_document
+---
+
+&lt;!-- README.md is generated from README.Rmd. Please edit that file --&gt;
+
+``{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = &quot;#&gt;&quot;,
+  fig.path = &quot;README-&quot;
+)
+``
+
+# rrcompendium
+
+This repository contains the data and code for our paper:
+
+&gt; Authors, (YYYY). _Title of paper_. Name of journal/book &lt;https://doi.org/xxx/xxx&gt;
+
+Our pre-print is online here:
+
+&gt; Authors, (YYYY). _Title of paper_. Name of journal/book, Accessed 30 Oct 2018. Online at &lt;https://doi.org/xxx/xxx&gt;
+
+
+### How to cite
+
+Please cite this compendium as:
+
+&gt; Authors, (2018). _Compendium of R code and data for &#39;Title of paper&#39;_. Accessed 30 Oct 2018. Online at &lt;https://doi.org/xxx/xxx&gt;
+
+### How to download or install
+
+You can download the compendium as a zip from from this URL: &lt;/archive/master.zip&gt;
+
+Or you can install this compendium as an R package, rrcompendium, from GitHub with:
+### Licenses
+
+**Text and figures :**  [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/)
+
+**Code :** See the [DESCRIPTION](DESCRIPTION) file
+
+**Data :** [CC-0](http://creativecommons.org/publicdomain/zero/1.0/) attribution requested in reuse
+
+### Contributions
+
+We welcome contributions from everyone. Before you get started, please see our [contributor guidelines](CONTRIBUTING.md). Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+</code></pre>
+</div>
+<div id="update-readme" class="section level2">
+<h2>update <code>README</code></h2>
+<div id="compendium-doi" class="section level3">
+<h3>compendium DOI</h3>
+<pre><code>This repository contains the data and code for our reproduction paper:
+
+&gt; Krystalli, A, (2018). _Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools_.  &lt;https://doi.org/{DOI-to-paper}&gt;</code></pre>
+</div>
+<div id="paper.pdf-doi" class="section level3">
+<h3>paper.pdf DOI</h3>
+<pre><code>Our reproduction pre-print is online here:
+
+&gt; Krystalli, A, (2018). _Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools_, Accessed 30 Oct 2018. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;
+</code></pre>
+</div>
+<div id="compendium-citation" class="section level3">
+<h3>compendium citation</h3>
+<pre><code>Please cite this compendium as:
+
+&gt; Krystalli, A, (2018). _Compendium of R code and data for &#39;Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools&#39;_. Accessed 30 Oct 2018. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;</code></pre>
+</div>
+<div id="update-zip-url" class="section level3">
+<h3>update zip url</h3>
+<p>This is a link to download a zipped file of the repository. To update the template, just paste the url of your compendium repository like so:</p>
+<pre><code>### How to download or install
+
+You can download the compendium as a zip from from this URL: &lt;https://github.com/annakrystalli/rrcompendium/archive/master.zip&gt;</code></pre>
+</div>
+<div id="adjust-data-license-to-match-the-source-compendium-license-which-cc-by-4.0" class="section level3">
+<h3>Adjust data LICENSE to match the source compendium license which CC-BY 4.0</h3>
+<pre><code>**Text and figures :**  [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/)
+
+**Code :** See the [DESCRIPTION](DESCRIPTION) file
+
+**Data :** [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/), Copyright (c) 2018 Carl Boettiger.</code></pre>
+</div>
+</div>
+<div id="recap" class="section level2">
+<h2>Recap</h2>
+<p>We’ve now completed our <code>rrtools</code> <code>README.Rmd</code>! 🎉</p>
+<p>Render it to update the <code>README.md</code> file which github displays</p>
+<p>Commit and push to GitHub</p>
+<hr />
+<p><img src="assets/README-webshot.png" /></p>
+<hr />
+<p>and your project folder should contain:</p>
+<pre><code>.
+├── CONDUCT.md
+├── CONTRIBUTING.md
+├── DESCRIPTION
+├── LICENSE
+├── LICENSE.md
+├── NAMESPACE
+├── R
+├── README.Rmd
+├── README.md
+├── man
+└── rrcompendium.Rproj</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

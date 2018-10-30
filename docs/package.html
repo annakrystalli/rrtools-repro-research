@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Set up functionality as a package</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reproducible Research with rrtools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Handouts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workshop Sections</li>
+    <li>
+      <a href="intro.html">Welcome</a>
+    </li>
+    <li>
+      <a href="create-compendium.html">Create a compendium</a>
+    </li>
+    <li>
+      <a href="version-control-sharing.html">Prepare compendium for GitHub</a>
+    </li>
+    <li>
+      <a href="analysis.html">Set up analysis</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="package.html">Manage functionality as a package</a>
+    </li>
+    <li>
+      <a href="paper.html">Create paper</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://bit.ly/rrtools_wks">Get Workshop Data</a>
+</li>
+<li>
+  <a href="https://github.com/annakrystalli/rrtools-repro-research">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Set up functionality as a package</h1>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2018-10-30</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<details>
+<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is ignored by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181015)</code> </summary></p>
+<p>The command <code>set.seed(20181015)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/962747f812c5382a5ac09b09e2c2f73567dcb200" target="_blank">962747f</a> </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/data/
+    Ignored:    analysis/package.Rmd
+    Ignored:    assets/
+    Ignored:    docs/.DS_Store
+    Ignored:    docs/figure/
+
+Untracked files:
+    Untracked:  docs/assets/
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+
+Staged changes:
+    Modified:   .gitignore
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</details>
+</li>
+</ul>
+<hr />
+<p>To work with packages in RStudio you use the <strong>Build pane</strong>, which includes a variety of tools for building and testing packages. This will appear if Rstudio recognises the project as an R package.</p>
+<p><img src="assets/build-panel.png" height="200px"></p>
+<p>Let’s open <code>analysis.R</code>. The script has some setup, then loads the data, recodes one of the columns for plotting and then plots the results of the simulation, which <strong>generates figure 1 in <code>paper.pdf</code></strong>.</p>
+<div id="analysis.r" class="section level4">
+<h4><code>analysis.R</code></h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(ggthemes)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">theme_set</span>(<span class="kw">theme_grey</span>())</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># create colour palette</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">colours &lt;-<span class="st"> </span><span class="kw">ptol_pal</span>()(<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># load-data</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;gillespie.csv&quot;</span>), <span class="dt">col_types =</span> <span class="st">&quot;cdiddd&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># recode-data</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">system_size =</span> <span class="kw">recode</span>(system_size, </a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>, </a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">                              <span class="dt">small =</span> <span class="st">&quot;B. 100 total sites&quot;</span>)) </a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># plot-gillespie</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> mean), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> minus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> plus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n), <span class="dt">col=</span>colours[<span class="dv">1</span>]) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>system_size, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) </a></code></pre></div>
+<p><img src="figure/package.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<hr />
+</div>
+<div id="create-a-package-function" class="section level2">
+<h2>Create a package function</h2>
+<p><br></p>
+<div id="create-.r-function-script" class="section level3">
+<h3>create <code>.R</code> function script</h3>
+<p>To create or edit .R files, we can use:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_r</span>(<span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
+<pre><code>● Modify &#39;R/process-data.R&#39;</code></pre>
+<p>This creates a file called <code>process-data.R</code> in the <code>R/</code> directory and opens it up for editing.</p>
+<p><br></p>
+</div>
+<div id="write-function" class="section level3">
+<h3>write function</h3>
+<p>In this file, let’s now create a function to recode <code>system_size</code> from the <code>analysis.R</code> file in the course materials.</p>
+<p>In particular, we can modify the following code from <code>analysis.R</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">system_size =</span> <span class="kw">recode</span>(system_size, </a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>, </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">                              <span class="dt">small =</span> <span class="st">&quot;B. 100 total sites&quot;</span>)) </a></code></pre></div>
+<p>into a function like so:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">    <span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6">}</a></code></pre></div>
+<p>Now, to have our function exported as part of the <code>rrcompendium</code> package, we need to document it using <code>Roxygen2</code>.</p>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="document-function" class="section level2">
+<h2>Document function</h2>
+<p><br></p>
+<div id="roxygen2-documentation" class="section level3">
+<h3>Roxygen2 documentation</h3>
+<p><code>Roxygen2</code> allows you to write specially-structured comments preceding each function definition. These are processed automatically to produce <code>.Rd</code> help files for your functions and control which are exported to the package <code>NAMESPACE</code>.</p>
+<p>See the <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html">Generating Rd files</a> <code>roxygen2</code> vignette or Karl Broman’s blogpost on <a href="http://kbroman.org/pkg_primer/pages/docs.html">writing Roxygen2 documentation</a> for further details.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;roxygen2&quot;</span>)</a></code></pre></div>
+<p><br></p>
+</div>
+<div id="insert-roxygen-skeleton" class="section level3">
+<h3>Insert Roxygen skeleton</h3>
+<p>In Rstudio, you can insert a roxygen skeleton by placing the cursor anywhere in the definition of a function, then clicking:</p>
+<pre><code>Code &gt; Insert Roxygen Skeleton</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">#&#39; Title</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&#39; @param data</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&#39; @return</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">    <span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">}</a></code></pre></div>
+<p><br></p>
+</div>
+<div id="complete-roxygen-documentation" class="section level3">
+<h3>Complete Roxygen documentation</h3>
+<p><strong>Roxygen comments start with <code>#'</code></strong> so you can continue to use regular comments for other purposes.</p>
+<div id="title-and-description" class="section level4">
+<h4>Title and description</h4>
+<p>The first line <strong>First line</strong> corresponds to the <strong>title</strong> for the function. The title is followed by a blank <code>#'</code> line and then a <strong>longer description briefly describing what the function does.</strong> The description must be a single paragraph.</p>
+<p>So for our function we could write something like this:</p>
+<pre><code>#&#39; Recode system time variable
+#&#39;
+#&#39; Recode system time variable in dataframe containing data from file
+#&#39; `gillespie.csv`</code></pre>
+<p>Further details are documented in Roxygen using <strong>tags</strong> like <code>@tag</code>.</p>
+</div>
+<div id="document-parameters" class="section level4">
+<h4>Document parameters</h4>
+<p><code>@param</code> fields are extracted in the skeleton for <strong>each function argument</strong> and provide a way to document <strong>argument descriptions</strong>. We can document our single argument by editing the skeleton like so:</p>
+<pre><code>#&#39; @param data dataframe containing data from file
+#&#39; `gillespie.csv`</code></pre>
+</div>
+<div id="document-function-output" class="section level4">
+<h4>Document function output</h4>
+<p>We use tag <code>@return</code> to describe <strong>what the function returns.</strong> In our case, we can edit with:</p>
+<pre><code>#&#39; @return `data` with variable `system_size` recoded for plotting</code></pre>
+</div>
+<div id="export" class="section level4">
+<h4>Export</h4>
+<p><code>@export</code> tells <code>Roxygen2</code> to <strong>add this function to the <code>NAMESPACE</code></strong> file, so that it will be <strong>accessible to users.</strong> The Roxygen skeleton includes the <code>@export</code> tag by default. You can remove it for internal functions that will only be available within the <code>NAMESPACE</code>. You can access internal functions of a package using <code>&lt;package_name&gt;:::</code></p>
+</div>
+<div id="provide-examples" class="section level4">
+<h4>Provide examples</h4>
+<p>The <code>@examples</code> tag provides executable R code showing how to use the function in practice. This is a very important part of the documentation because many people look at the examples before reading anything else.</p>
+<p>We’ll skip this for now but come back to it a bit later. Just remove the tag for now.</p>
+<p><br></p>
+<p>The completed function documentation should look something like this:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#&#39; Recode system time variable</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&#39; Recode system time variable in dataframe containing data from file</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&#39; `gillespie.csv`</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&#39; @param data dataframe containing data from file</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&#39; `gillespie.csv`</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&#39; @return `data` with variable `system_size` recoded for</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&#39; plotting</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb14-11" data-line-number="11">    <span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb14-12" data-line-number="12">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb14-13" data-line-number="13">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb14-14" data-line-number="14">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb14-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb14-16" data-line-number="16"></a></code></pre></div>
+<p><br></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="build-and-install-package" class="section level2">
+<h2>Build and install package</h2>
+<p><br></p>
+<div id="build-roxygen-documentation" class="section level3">
+<h3>Build Roxygen documentation</h3>
+<p>Now that we’ve annotated our source code we can build the documentation either by clicking on <strong>More &gt; Document</strong> in the RStudio <strong>Build</strong> panel or from the console using:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">document</span>()</a></code></pre></div>
+<p>This is a wrapper for the <code>roxygenize()</code> function from the roxygen2 package. This builds the <code>.Rd</code> help files and populates the <code>NAMESPACE</code></p>
+<p>The <code>man/</code> directory will now cintain an <code>.Rd</code> file for <code>recode_system_size</code></p>
+<pre><code>man
+└── recode_system_size.Rd</code></pre>
+<p>and the <code>NAMESPACE</code> now contains an <code>export()</code> entry for <code>recode_system_size</code>:</p>
+<pre><code># Generated by roxygen2: do not edit by hand
+
+export(recode_system_size)
+</code></pre>
+<p><br></p>
+</div>
+<div id="install-package" class="section level3">
+<h3>Install package</h3>
+<p>The usual workflow for package development is to:</p>
+<ul>
+<li>make some changes</li>
+<li>build and install the package</li>
+<li>unload and reload the package (often in a new R session)</li>
+</ul>
+<p>The best way to install and reload a package in a fresh R session while is to use the 🔨 <strong>Install and Restart</strong> cammand tab in the <strong>Build</strong> panel which performs several steps in sequence to ensure a clean and correct result:</p>
+<ul>
+<li>Unloads any existing version of the package (including shared libraries if necessary).</li>
+<li>Builds and installs the package using R CMD INSTALL. Restarts the underlying R session to ensure a clean environment for re-loading the package. Reloads the package in the new R session by executing the library function.</li>
+</ul>
+<p>Running the 🔨 <strong>Install and Restart</strong> command on our package results in this output in the <strong>Build</strong> panel output:</p>
+<pre><code>Installing rrcompendium
+&#39;/Library/Frameworks/R.framework/Resources/bin/R&#39;  \
+  --no-site-file --no-environ --no-save --no-restore --quiet  \
+  CMD INSTALL &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;  \
+  --library=&#39;/Library/Frameworks/R.framework/Versions/3.4/Resources/library&#39;  \
+  --install-tests 
+
+* installing *source* package ‘rrcompendium’ ...
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (rrcompendium)
+Reloading installed rrcompendium</code></pre>
+<p>And</p>
+<pre><code>Restarting R session...</code></pre>
+<p>in the console.</p>
+<p>We can inspect the documentation for our function using:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">?recode_system_size</a></code></pre></div>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="check-package" class="section level2">
+<h2>Check package</h2>
+<p>Now we can use package development infrastructure to check our package. We can run check in the console using <code>devtools::check()</code> or by clicking on the ✅<strong>Check</strong> tab in the <strong>Build</strong> panel.</p>
+<p>Both these run <code>R CMD check</code> which return three types of messages:</p>
+<ul>
+<li><p>ERRORs: Severe problems that you should fix regardless of whether or not you’re submitting to CRAN.</p></li>
+<li><p>WARNINGs: Likely problems that you must fix if you’re planning to submit to CRAN (and a good idea to look into even if you’re not).</p></li>
+<li><p>NOTEs: Mild problems. If you are submitting to CRAN, you should strive to eliminate all NOTEs, even if they are false positives.</p></li>
+</ul>
+<pre><code>Status: 1 NOTE
+checking R code for possible problems ... NOTE
+recode_system_size: no visible global function definition for ‘mutate’
+recode_system_size: no visible global function definition for ‘recode’
+recode_system_size: no visible binding for global variable
+  ‘system_size’
+Undefined global functions or variables:
+  mutate recode system_size
+
+See
+  ‘/Users/Anna/Documents/workflows/rrcompendium.Rcheck/00check.log’
+for details.
+
+
+R CMD check results
+0 errors | 0 warnings | 1 note 
+
+R CMD check succeeded
+</code></pre>
+<p>OK so there’s a couple of flags in a NOTE. Let’s start with <code>``` recode_system_size: no visible global function definition for ‘mutate’ recode_system_size: no visible global function definition for ‘recode’ ``` This arises because we are using two</code>dplyr<code>functions in our function,</code>mutate<code>and</code>recode<code>. However, we have not specified that this functions are imported from the</code>dplyr<code></code>NAMESPACE<code>so it looks for functions with that name in our package (</code>rrcompendium`) and obviously can’t find anything. <br></p>
+<div id="add-namespce-to-function-notation" class="section level3">
+<h3>Add namespce to function notation</h3>
+<p>To specify the namespace of a function we use the notation <code>&lt;package_name&gt;::&lt;function_name&gt;</code> so let’s update our function with these details.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">recode_system_size &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">    dplyr<span class="op">::</span><span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">                  <span class="dt">system_size =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">                                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">                                              <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6">}</a></code></pre></div>
+<p>Let’s run <strong>Check</strong> again:</p>
+<pre><code>checking dependencies in R code ... WARNING
+&#39;::&#39; or &#39;:::&#39; import not declared from: ‘dplyr’
+
+checking R code for possible problems ... NOTE
+recode_system_size: no visible binding for global variable
+  ‘system_size’
+Undefined global functions or variables:
+  system_size
+R CMD check results
+0 errors | 1 warning  | 1 note 
+</code></pre>
+<p><br></p>
+</div>
+<div id="add-dependency" class="section level3">
+<h3>Add dependency</h3>
+<p>In these <code>checks</code>, the note about undefined global functions <code>mutate</code> and <code>recode</code> is gone but now we have a <strong>warning</strong> regarding <code>'::' or ':::' import not declared from: ‘dplyr’</code>. It’s flagging the fact that we are wanting to import functions from <code>dplyr</code> but have not yet declared the package as a dependency in the <code>Imports</code> field of the <code>DESCRIPTION</code> file. We can add <code>dplyr</code> to <code>Imports</code> with:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_package</span>(<span class="st">&quot;dplyr&quot;</span>)</a></code></pre></div>
+<pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
+✔ Adding &#39;dplyr&#39; to Imports field in DESCRIPTION
+● Refer to functions with `dplyr::fun()`</code></pre>
+<p>and the <code>DESCRIPTION</code> file now includes</p>
+<pre><code>Imports: 
+    bookdown,
+    dplyr</code></pre>
+<p>Running <strong>Check</strong> again, the warning is now gone and we are left with the minor note on</p>
+<pre><code>recode_system_size: no visible binding for global variable
+  ‘system_size’</code></pre>
+<p>We’ll ignore this note for the time being. It results from the non-standard evaluation used in dplyr functions. You can find out more about it in the <a href="https://dplyr.tidyverse.org/articles/programming.html">Programming with <code>dplyr</code></a> vignette.</p>
+<p><br></p>
+</div>
+<div id="test-out-function" class="section level3">
+<h3>Test out function</h3>
+<p>Run 🔨 <strong>Install and Restart</strong> to ensure the installed package is up to date.</p>
+<p>Then let’s test out our function:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">library</span>(rrcompendium)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>))</a></code></pre></div>
+<pre><code>Parsed with column specification:
+cols(
+  system_size = col_character(),
+  time = col_double(),
+  n = col_integer(),
+  mean = col_character(),
+  plus_sd = col_character(),
+  minus_sd = col_character()
+)</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">recode_system_size</span>(data)</a></code></pre></div>
+<pre><code># A tibble: 10,747 x 6
+   system_size             time     n mean  plus_sd minus_sd
+   &lt;chr&gt;                  &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
+ 1 A. 1000 total sites 0.         500 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 2 A. 1000 total sites 0.000359   501 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 3 A. 1000 total sites 0.00680    502 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 4 A. 1000 total sites 0.00818    503 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 5 A. 1000 total sites 0.0199     504 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 6 A. 1000 total sites 0.0207     505 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 7 A. 1000 total sites 0.0222     504 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 8 A. 1000 total sites 0.0242     505 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+ 9 A. 1000 total sites 0.0258     506 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+10 A. 1000 total sites 0.0264     507 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
+# ... with 10,737 more rows</code></pre>
+<div id="it-works" class="section level4">
+<h4>It works! 🎉</h4>
+<p><br></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="test-function" class="section level2">
+<h2>Test function</h2>
+<p>Testing is a vital part of package development. It ensures that our code does what you want it to do.</p>
+<p>Once you’re set up with a testing framework, the workflow is simple:</p>
+<ol style="list-style-type: decimal">
+<li><p>Modify your code or tests.</p></li>
+<li><p>Test your package with Ctrl/Cmd + Shift + T or <code>devtools::test()</code>.</p></li>
+<li><p>Repeat until all tests pass.</p></li>
+</ol>
+<div id="create-a-test-file" class="section level3">
+<h3>Create a test file</h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_test</span>(<span class="dt">name =</span> <span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
+<pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
+✔ Adding &#39;testthat&#39; to Suggests field in DESCRIPTION
+✔ Creating &#39;tests/testthat/&#39;
+✔ Writing &#39;tests/testthat.R&#39;
+✔ Writing &#39;tests/testthat/test-process-data.R&#39;
+● Modify &#39;tests/testthat/test-process-data.R&#39;</code></pre>
+<p>This will:</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a <code>tests/testthat</code> directory.</p></li>
+<li><p>Adds testthat to the <code>Suggests</code> field in the <code>DESCRIPTION</code>.</p></li>
+<li><p>Creates a file <code>tests/testthat.R</code> that runs all your tests when <code>R CMD check</code> runs.</p></li>
+<li><p>Creates a test file in <code>tests/testthat/</code> appending <code>test-</code> to the <code>name</code> argument.</p></li>
+</ol>
+<div id="testthat.r" class="section level5">
+<h5><code>testthat.R</code></h5>
+<p>The <code>testthat.R</code> file runs all the tests. You can use this to load any packages required for testing (although explict <code>NAMESPACE</code> notation <code>::</code> as in package source code is still preferable to ensure accuracy of tests)</p>
+<pre><code>library(testthat)
+library(rrcompendium)
+
+test_check(&quot;rrcompendium&quot;)
+</code></pre>
+</div>
+<div id="test-process-data" class="section level5">
+<h5>test-process-data</h5>
+<p>It also creates and opens test file <code>test-process-data</code> and pre-populates it with an example test.</p>
+<pre><code>context(&quot;test-process-data&quot;)
+
+test_that(&quot;multiplication works&quot;, {         # test desc
+  expect_equal(2 * 2, 4)                    # tests
+})</code></pre>
+<p>There are two elements to any test:</p>
+<ul>
+<li><p><code>desc</code>: test name. Names should be kept as brief as possible, as they are often used as line prefixes.</p></li>
+<li><p><code>code</code>: test code containing expectations</p></li>
+</ul>
+</div>
+<div id="create-test-data" class="section level4">
+<h4>create test data</h4>
+<p>To test our function we’ll need some data. The easiest way is to include an example dataset, in this case we’ll just use <code>gillespie.csv</code>. However we need to store the data in a directory that is still accessible when the package is built.</p>
+<p>Anything in the <code>.Rbuildignore</code> file will be ignored during building and installation, which currently ignores the entire <code>analysis/</code> directory, including our data.</p>
+<pre><code>^LICENSE\.md$
+^rrcompendium\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
+analysis</code></pre>
+<p>We can make files available after install by including them in an <code>inst/</code> directory. When a package is installed, everything in <code>inst/</code> is copied into the top-level package directory.</p>
+<p>You are free to put anything you like in <code>inst/</code> with one caution: <strong>because <code>inst/</code> is copied into the top-level directory, you should never use a subdirectory with the same name as an existing directory</strong>.</p>
+<p>This means that you should generally avoid <code>inst/build</code>, <code>inst/data</code>, <code>inst/demo</code>, <code>inst/exec</code>, <code>inst/help</code>, <code>inst/html</code>, <code>inst/inst</code>, <code>inst/libs</code>, <code>inst/Meta</code>, <code>inst/man</code>, <code>inst/po</code>, <code>inst/R</code>, <code>inst/src</code>, <code>inst/tests</code>, <code>inst/tools</code> and <code>inst/vignettes</code>.</p>
+<div id="create-insttestdata-directory" class="section level5">
+<h5>Create <code>inst/testdata/</code> directory</h5>
+<p>So let’s create an <code>inst/</code> directory and within it a <code>testdata/</code> directory to save our example data.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">dir.create</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>), <span class="dt">recursive =</span> T)</a></code></pre></div>
+</div>
+<div id="copy-example-data" class="section level5">
+<h5>Copy example data</h5>
+<p>Now let’s make a copy of <code>gillespie.csv</code> into the <code>inst/testdata/</code> directory:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">file.copy</span>(<span class="dt">from =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>), </a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">          <span class="dt">to =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>))</a></code></pre></div>
+<p>You should now have an <code>inst</code> folder containing the following files</p>
+<pre><code>inst
+└── testdata
+    └── gillespie.csv</code></pre>
+</div>
+<div id="install-and-restart" class="section level5">
+<h5>Install and Restart</h5>
+<p>Run 🔨 <strong>Install and Restart</strong> so that <code>testdata/</code> is included in the build.</p>
+<p>We can now use <code>system.file()</code>, which finds the full file names of files in packages, in our test script to load our test data set.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">system.file</span>(..., <span class="dt">package =</span> <span class="st">&quot;my_package&quot;</span>)</a></code></pre></div>
+<p>It uses anything supplied to <code>...</code> to build the path to the file, much like <code>here::here</code>.</p>
+<p>So in <code>test-process-data.R</code>, we can now write:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb41-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a></code></pre></div>
+<p>We can also use this dataset to provide a working example of <code>recode_system_size(data)</code>. So let’s go back to <code>R/process-data.R</code> and add an example to our documentation</p>
+<pre><code>#&#39; @examples {
+#&#39; data &lt;- readr::read_csv(system.file(&quot;testdata&quot;, &quot;gillespie.csv&quot;,
+#&#39; package = &quot;rrcompendium&quot;))
+#&#39; recode_system_size(data)
+#&#39; }</code></pre>
+<p><strong>Document</strong> and the <strong>Install and Restart</strong> to update package.</p>
+</div>
+</div>
+</div>
+<div id="write-test" class="section level3">
+<h3>Write test</h3>
+<p>Let’s now write a couple of tests.</p>
+<p>First let’s test that recoding works, by checking the unique values of <code>system_size</code> after running <code>recode_system_size</code>:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">})</a></code></pre></div>
+<p>Let’s also test that the original dimensions of <code>data</code> are preserved after running our function:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">                 <span class="kw">dim</span>(data))</a>
+<a class="sourceLine" id="cb44-4" data-line-number="4">})</a></code></pre></div>
+<p>The complete <code>test-process-data.R</code> file should look like this:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a>
+<a class="sourceLine" id="cb45-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb45-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
+<a class="sourceLine" id="cb45-8" data-line-number="8">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
+<a class="sourceLine" id="cb45-9" data-line-number="9">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
+<a class="sourceLine" id="cb45-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb45-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb45-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
+<a class="sourceLine" id="cb45-13" data-line-number="13">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
+<a class="sourceLine" id="cb45-14" data-line-number="14">                 <span class="kw">dim</span>(data))</a>
+<a class="sourceLine" id="cb45-15" data-line-number="15">})</a></code></pre></div>
+<p>Because we’re using <code>read_csv</code> from <code>readr</code> in our tests, let’s add it as to <code>Suggests</code></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">use_package</span>(<span class="st">&quot;readr&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;Suggests&quot;</span>)</a></code></pre></div>
+<pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
+✔ Adding &#39;readr&#39; to Suggests field in DESCRIPTION
+● Use `requireNamespace(&quot;readr&quot;, quietly = TRUE)` to test if package is installed
+● Then use `readr::fun()` to refer to functions.</code></pre>
+<p>Our <code>DESCRIPTION</code> file now contains:</p>
+<pre><code>Suggests: 
+    testthat,
+    readr</code></pre>
+<p>Once our tests are saved, we’re ready to test our package! 😃</p>
+<p><br></p>
+</div>
+<div id="test-package" class="section level3">
+<h3>Test package</h3>
+<p>We can test our package through:</p>
+<ul>
+<li><code>More &gt; Test Package</code> in the <strong>Build</strong> panel</li>
+<li><code>Ctrl/Cmd + Shift + T</code></li>
+<li><code>devtools::test()</code>.</li>
+</ul>
+<pre><code>==&gt; devtools::test()
+
+Loading rrcompendium
+Loading required package: testthat
+Testing rrcompendium
+✔ | OK F W S | Context
+✔ |  2       | test-process-data [0.2 s]
+
+══ Results ════════════════════════════════════════════════════════════════
+Duration: 0.3 s
+
+OK:       2
+Failed:   0
+Warnings: 0
+Skipped:  0</code></pre>
+<div id="our-tests-pass" class="section level5">
+<h5>Our tests pass!! 🎉</h5>
+<p>Now ever time you check your package, the test will also be run automatically.</p>
+</div>
+</div>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

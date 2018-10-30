@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Create Compendium</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">rrtools-repro-research</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Create Compendium</h1>
+
+</div>
+
+
+<div id="get-packages" class="section level2">
+<h2>Get packages</h2>
+<pre class="r"><code># install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;benmarwick/rrtools&quot;)</code></pre>
+<p>Installing <code>rrtools</code> imports many of the packages we’ll need today (eg, have a look at the imports section of the <a href="https://github.com/benmarwick/rrtools/blob/master/DESCRIPTION"><code>DESCRIPTION</code></a> file).</p>
+<pre><code>Imports: devtools, git2r, whisker, rstudioapi, rmarkdown, knitr,
+    bookdown, curl, RCurl, jsonlite, methods, httr, usethis, clisymbols,
+    crayon, glue, readr (&gt;= 1.1.1)</code></pre>
+<p>Now also install some additional packages we’ll need for the workshop.</p>
+<pre class="r"><code>install.packages(c(
+    # source paper analysis
+    &quot;dplyr&quot;, &quot;ggplot2&quot;, &quot;readr&quot;, &quot;ggthemes&quot;, &quot;here&quot;,
+    # bibliographic / publishing
+    &quot;citr&quot;, &quot;rticles&quot;, &quot;rmarkdown&quot;, 
+    # documentation
+    &quot;roxygen2&quot;,
+    # graphics
+    &quot;Cairo&quot;))</code></pre>
+<hr />
+</div>
+<div id="get-data" class="section level2">
+<h2>Get data</h2>
+<p>Today we’ll be working with a small example of materials from a published compendium of code, data, and author’s manuscript accompanying the publication:</p>
+<div id="carl-boettiger-.-from-noise-to-knowledge-how-randomness-generates-novel-phenomena-and-reveals-information.-published-in-ecology-letters-22-may-2018-httpsdoi.org10.1111ele.13085" class="section level4">
+<h4>Carl Boettiger <a href="https://orcid.org/0000-0002-1642-628X"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a>. <em>From noise to knowledge: how randomness generates novel phenomena and reveals information</em>. Published in <em>Ecology Letters</em>, 22 May 2018 <a href="https://doi.org/10.1111/ele.13085" class="uri">https://doi.org/10.1111/ele.13085</a></h4>
+<p><img src="assets/Boettiger-2018.png" heigth="250px"></p>
+<p>You can download the materials using <code>usethis::use_course()</code> and supplying a path to a destination folder to argument <code>destdir</code>:</p>
+<pre class="r"><code>usethis::use_course(url = &quot;bit.ly/rrtools_wks&quot;, destdir = &quot;~/Desktop&quot;)</code></pre>
+<p>This will download everything we need from a GitHub repository as a <code>.zip</code> file, unzip it and launch it in a Rstudio project for us to explore in a new session.</p>
+</div>
+<div id="materials" class="section level3">
+<h3>materials</h3>
+<pre><code>├── README.md &lt;- .......................repo README
+├── analysis.R &lt;- ......................analysis underlying paper
+├── gillespie.csv &lt;- ...................data
+├── paper.pdf &lt;- .......................LaTex pdf of the paper
+├── paper.txt &lt;- .......................text body of the paper
+├── refs.bib &lt;- ........................bibtex bibliographic file
+└── rrtools-wkshp-materials.Rproj &lt;- ...rstudio project file</code></pre>
+<p>Now we’re going to work with <code>paper.txt</code> and <code>analysis.R</code> and combine the in a literate programming document to reproduce <code>paper.pdf</code></p>
+<p>We’ll use this as an opportunity to create a new research compendium using <code>rrtools</code> and friends!</p>
+<hr />
+</div>
+</div>
+<div id="create-compendium" class="section level2">
+<h2>Create compendium</h2>
+<div id="load-library" class="section level3">
+<h3>load library</h3>
+<pre class="r"><code>library(rrtools) # will confirm that you have Git installed and configured</code></pre>
+<pre class="r"><code>✔ Git is installed on this computer, your username is annakrystalli</code></pre>
+<p>If your git configuration hasn’t been set yet, you can use <code>usethis::use_git_config()</code>, eg</p>
+<p>Set git configuration:</p>
+<pre class="r"><code>use_git_config(user.name = &quot;Jane&quot;, user.email = &quot;jane@example.org&quot;)</code></pre>
+<p>Check git configuration:</p>
+<pre class="r"><code>usethis::use_git_config()</code></pre>
+<pre><code>$user.name
+[1] &quot;Jane&quot;
+
+$user.email
+[1] &quot;jane@example.org&quot;</code></pre>
+</div>
+<div id="create-compendium-1" class="section level3">
+<h3>create compendium</h3>
+<p>Now all we need to do to create a compendium is give it a path in which to create compendium. Because this will effectively create a package, only a single stringe of alpha-numeric characters are accepted.</p>
+<pre class="r"><code>rrtools::use_compendium(&quot;~/Documents/workflows/rrcompendium&quot;)</code></pre>
+<pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
+✔ Creating &#39;R/&#39;
+✔ Creating &#39;man/&#39;
+✔ Writing &#39;DESCRIPTION&#39;
+✔ Writing &#39;NAMESPACE&#39;
+✔ Writing &#39;rrcompendium.Rproj&#39;
+✔ Adding &#39;.Rproj.user&#39; to &#39;.gitignore&#39;
+✔ Adding &#39;^rrcompendium\\.Rproj$&#39;, &#39;^\\.Rproj\\.user$&#39; to &#39;.Rbuildignore&#39;
+✔ Opening new project &#39;rrcompendium&#39; in RStudio
+✔ The package rrcompendium has been created
+✔ Opening the new compendium in a new RStudio session...
+
+Next, you need to:  ↓ ↓ ↓ 
+● Edit the DESCRIPTION file
+● Use other &#39;rrtools&#39; functions to add components to the compendium</code></pre>
+<p><img src="assets/create-compendium.png" heigth="400px"></p>
+</div>
+<div id="initiate-git" class="section level3">
+<h3>Initiate <code>git</code></h3>
+<p>We can initialise our compendium with <code>.git</code> using:</p>
+<pre class="r"><code>usethis::use_git()</code></pre>
+<p><strong>N.B. Beware, you may have ended up with two Rstudio sessions of <code>rrcompendium</code>.</strong> Make sure to only have one session of a single project at one time to avoid problems.</p>
+</div>
+<div id="inspect-templates" class="section level3">
+<h3>Inspect templates</h3>
+<pre><code>.
+├── DESCRIPTION &lt;- .............................package metadata
+|                                               dependency management
+├── NAMESPACE &lt;- ...............................AUTO-GENERATED on build
+├── R &lt;- .......................................folder for functions
+├── man &lt;- .....................................AUTO-GENERATED on build
+└── rrcompendium.Rproj &lt;- ......................rstudio project file</code></pre>
+<p><code>rrtools::use_compendium()</code> creates the bare backbone of infrastructure required for a research compendium. At this point the infrastructure provides facilities to store general metadata about our compendium (eg bibliographic details to create a citation) and manage dependencies in the <code>DESCRIPTION</code> file and store and document functions in the <code>R/</code> folder. Together these allow you to manage, install and share functionality associated with our project</p>
+</div>
+</div>
+<div id="update-description-file" class="section level2">
+<h2>update description file</h2>
+<p>Let’s update some basic details in the <code>DESCRIPTION</code> file:</p>
+<pre><code>Package: rrcompendium
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = &quot;First&quot;,
+           family = &quot;Last&quot;,
+           role = c(&quot;aut&quot;, &quot;cre&quot;),
+           email = &quot;first.last@example.com&quot;)
+Description: What the package does (one paragraph)
+License: What license it uses
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+</code></pre>
+<div id="title" class="section level3">
+<h3>Title</h3>
+<p>Let’s start with giving our compendium a descriptive title:</p>
+<pre><code>Title: Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 
+    with rrtools</code></pre>
+</div>
+<div id="version" class="section level3">
+<h3>Version</h3>
+<p>We don’t need to change the version now but using <a href="https://semver.org/">semantic versioning</a> of the compendium can be a really useful way to version changes. In general, versions below <code>0.0.1</code> are in development, hence the <code>DESCRIPTION</code> file defaults to <code>0.0.0.9000</code>.</p>
+</div>
+<div id="authors" class="section level3">
+<h3>Authors</h3>
+<p>Next let’s specify the authors of the compendium. Edit with your own details</p>
+<pre><code>Authors@R: 
+    person(given = &quot;Anna&quot;,
+           family = &quot;Krystalli&quot;,
+           role = c(&quot;aut&quot;, &quot;cre&quot;),
+           email = &quot;annakrystalli@googlemail.com&quot;)</code></pre>
+<p>For more details on specifying authors, check documentation using <code>?person</code></p>
+</div>
+<div id="description" class="section level3">
+<h3>Description</h3>
+<p>Let’s add a bit more detail about the contents of the compendium</p>
+<pre><code>Description: This repository contains the research compendium of the 
+    partial reproduction of Boettiger Ecology Letters 2018;21:1255–1267. 
+    The compendium contains all data, code, and text associated with this       sub-section of the analysis</code></pre>
+</div>
+<div id="license" class="section level3">
+<h3>License</h3>
+<p>Finally, let’s add a license for the material we create. This only covers the code. Additional licenses (eg CC0 CC-BY) would be required to cover data and other documents. But for now we’ll gloss over this ommission. See <a href="https://choosealicense.com" class="uri">https://choosealicense.com</a> for more details and other options.</p>
+<pre class="r"><code> usethis::use_mit_license()</code></pre>
+<pre><code>✔ Setting License field in DESCRIPTION to &#39;MIT + file LICENSE&#39;
+✔ Writing &#39;LICENSE.md&#39;
+✔ Adding &#39;^LICENSE\\.md$&#39; to &#39;.Rbuildignore&#39;</code></pre>
+<p>This creates files <code>LICENSE</code> and <code>LICENSE.md</code> and updates the <code>DESCRIPTION</code> file with details of the license.</p>
+<pre><code>License: MIT + file LICENSE</code></pre>
+<hr />
+</div>
+</div>
+<div id="recap" class="section level2">
+<h2>Recap</h2>
+<p>We’ve finished updating our <code>DESCRIPTION</code> file! 🎉</p>
+<p>It should look a bit like this:</p>
+<pre><code>Package: rrcompendium
+Title: Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 
+    with rrtools
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = &quot;Anna&quot;,
+           family = &quot;Krystalli&quot;,
+           role = c(&quot;aut&quot;, &quot;cre&quot;),
+           email = &quot;annakrystalli@googlemail.com&quot;)
+Description: This repository contains the research compendium of the partial 
+    reproduction of Boettiger Ecology Letters 2018;21:1255–1267. The compendium 
+    contains all data, code, and text associated with this sub-section of the 
+    analysis.
+License: MIT + file LICENSE
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+</code></pre>
+<p>and your project folder should contain:</p>
+<pre><code>.
+├── DESCRIPTION
+├── LICENSE
+├── LICENSE.md
+├── NAMESPACE
+├── R
+├── man
+└── rrcompendium.Rproj</code></pre>
+<p>Let’s commit our work and move on to preparing our compendium for sharing on GitHub.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
