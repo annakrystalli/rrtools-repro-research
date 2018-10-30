@@ -1,0 +1,7 @@
+---
+title: "further_resources"
+output: html_document
+---
+
+
+- [](Ben Marwick, Carl Boettiger & Lincoln Mullen (2018) Packaging Data Analytical Work Reproducibly Using R (and Friends), The American Statistician, 72:1, 80-88, DOI: 10.1080/00031305.2017.1375986)

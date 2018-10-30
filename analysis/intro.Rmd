@@ -1,0 +1,21 @@
+---
+title: "Intro"
+output: html_document
+---
+
+
+Scholarship will be strengthened if we are more open with research materials, yet we lack conventions and technical infrastructure for such openness.
+
+
+R packages can be used as a research compendium for organising and sharing files. R package structure is uniquely suitable to being easily adapted to solve problems of organising  les and sharing them with other researchers. We describe how the conventional structure of R packages can be adapted for use as a research compendium, and illustrate this use with real-world examples.
+
+
+## Research Compendium? Three Generic Principles
+
+1. organize its  les according to the prevailing conventions of the scholarly community:
+    help other people recognize the structure of the project, and also support tool building which takes advantage of the shared structure.
+1. clear separation of data, method, and output, while unambiguously expressing the relationship between those three.
+1. A research compendium should specify the compu- tational environment that was used for the original analysis
+
+
+## History

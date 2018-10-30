@@ -1,0 +1,285 @@
+---
+title: "Create Compendium"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+## Get packages
+
+
+```{r eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("benmarwick/rrtools")
+```
+
+Installing `rrtools` imports many of the packages we'll need today (eg, have a look at the imports section of the [`DESCRIPTION`](https://github.com/benmarwick/rrtools/blob/master/DESCRIPTION) file).
+
+```
+Imports: devtools, git2r, whisker, rstudioapi, rmarkdown, knitr,
+    bookdown, curl, RCurl, jsonlite, methods, httr, usethis, clisymbols,
+    crayon, glue, readr (>= 1.1.1)
+```
+
+Now also install some additional packages we'll need for the workshop.
+
+```{r, eval=FALSE}
+install.packages(c(
+    # source paper analysis
+    "dplyr", "ggplot2", "readr", "ggthemes", "here",
+    # bibliographic / publishing
+    "citr", "rticles", "rmarkdown", 
+    # documentation
+    "roxygen2",
+    # graphics
+    "Cairo"))
+```
+
+
+---
+
+## Get data
+
+Today we'll be working with a small example of materials from a published compendium of code, data, and author's manuscript accompanying the publication:
+
+#### Carl Boettiger [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](https://orcid.org/0000-0002-1642-628X). *From noise to knowledge: how randomness generates novel phenomena and reveals information*.  Published in *Ecology Letters*, 22 May 2018 <https://doi.org/10.1111/ele.13085>
+
+<img src="assets/Boettiger-2018.png" heigth="250px">
+
+
+
+
+You can download the materials using `usethis::use_course()` and supplying a path to a destination folder to argument `destdir`: 
+
+```{r}
+usethis::use_course(url = "bit.ly/rrtools_wks", destdir = "~/Desktop")
+```
+
+This will download everything we need from a GitHub repository as a `.zip` file, unzip it and launch it in a Rstudio project for us to explore in a new session.
+
+### materials
+
+```
+├── README.md <- .......................repo README
+├── analysis.R <- ......................analysis underlying paper
+├── gillespie.csv <- ...................data
+├── paper.pdf <- .......................LaTex pdf of the paper
+├── paper.txt <- .......................text body of the paper
+├── refs.bib <- ........................bibtex bibliographic file
+└── rrtools-wkshp-materials.Rproj <- ...rstudio project file
+```
+
+Now we're going to work with `paper.txt` and `analysis.R` and combine the in a literate programming document to reproduce `paper.pdf`
+
+We'll use this as an opportunity to create a new research compendium using `rrtools` and friends!
+
+---
+
+## Create compendium
+
+### load library
+```{r}
+library(rrtools) # will confirm that you have Git installed and configured
+```
+
+```r
+✔ Git is installed on this computer, your username is annakrystalli
+```
+If your git configuration hasn't been set yet, you can use `usethis::use_git_config()`, eg
+
+Set git configuration:
+
+```{r}
+use_git_config(user.name = "Jane", user.email = "jane@example.org")
+```
+
+Check git configuration:
+
+```{r}
+usethis::use_git_config()
+```
+
+```
+$user.name
+[1] "Jane"
+
+$user.email
+[1] "jane@example.org"
+```
+
+### create compendium
+
+Now all we need to do to create a compendium is give it a path in which to create compendium. Because this will effectively create a package, only a single stringe of alpha-numeric characters are accepted.
+
+```{r}
+rrtools::use_compendium("~/Documents/workflows/rrcompendium")
+```
+
+```
+✔ Setting active project to '/Users/Anna/Documents/workflows/rrcompendium'
+✔ Creating 'R/'
+✔ Creating 'man/'
+✔ Writing 'DESCRIPTION'
+✔ Writing 'NAMESPACE'
+✔ Writing 'rrcompendium.Rproj'
+✔ Adding '.Rproj.user' to '.gitignore'
+✔ Adding '^rrcompendium\\.Rproj$', '^\\.Rproj\\.user$' to '.Rbuildignore'
+✔ Opening new project 'rrcompendium' in RStudio
+✔ The package rrcompendium has been created
+✔ Opening the new compendium in a new RStudio session...
+
+Next, you need to:  ↓ ↓ ↓ 
+● Edit the DESCRIPTION file
+● Use other 'rrtools' functions to add components to the compendium
+```
+
+<img src="assets/create-compendium.png" heigth="400px">
+
+### Initiate `git`
+
+We can initialise our compendium with `.git` using:
+
+```{r}
+usethis::use_git()
+```
+
+
+**N.B. Beware, you may have ended up with two Rstudio sessions of `rrcompendium`.** Make sure to only have one session of a single project at one time to avoid problems.
+
+### Inspect templates
+
+```
+.
+├── DESCRIPTION <- .............................package metadata
+|                                               dependency management
+├── NAMESPACE <- ...............................AUTO-GENERATED on build
+├── R <- .......................................folder for functions
+├── man <- .....................................AUTO-GENERATED on build
+└── rrcompendium.Rproj <- ......................rstudio project file
+```
+
+`rrtools::use_compendium()` creates the bare backbone of infrastructure required for a research compendium. At this point the infrastructure provides facilities to store general metadata about our compendium (eg bibliographic details to create a citation) and manage dependencies in the `DESCRIPTION` file and store and document functions in the `R/` folder. Together these allow you to manage, install and share functionality associated with our project
+
+## update description file
+
+Let's update some basic details in the `DESCRIPTION` file:
+
+```
+Package: rrcompendium
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com")
+Description: What the package does (one paragraph)
+License: What license it uses
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+
+```
+
+### Title
+
+Let's start with giving our compendium a descriptive title:
+
+```
+Title: Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 
+    with rrtools
+```
+
+### Version
+
+We don't need to change the version now but using [semantic versioning](https://semver.org/) of the compendium can be a really useful way to version changes. In general, versions below `0.0.1` are in development, hence the `DESCRIPTION` file defaults to `0.0.0.9000`.
+
+
+### Authors
+
+Next let's specify the authors of the compendium. Edit with your own details
+
+```
+Authors@R: 
+    person(given = "Anna",
+           family = "Krystalli",
+           role = c("aut", "cre"),
+           email = "annakrystalli@googlemail.com")
+```
+For more details on specifying authors, check documentation using `?person`
+
+
+### Description
+
+Let's add a bit more detail about the contents of the compendium
+
+```
+Description: This repository contains the research compendium of the 
+    partial reproduction of Boettiger Ecology Letters 2018;21:1255–1267. 
+    The compendium contains all data, code, and text associated with this       sub-section of the analysis
+```
+
+
+### License
+
+Finally, let's add a license for the material we create. This only covers the code. Additional licenses (eg CC0 CC-BY) would be required to cover data and other documents. But for now we'll gloss over this ommission. See https://choosealicense.com for more details and other options.
+
+```{r}
+ usethis::use_mit_license()
+```
+
+```
+✔ Setting License field in DESCRIPTION to 'MIT + file LICENSE'
+✔ Writing 'LICENSE.md'
+✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+```
+This creates files `LICENSE` and `LICENSE.md` and updates the `DESCRIPTION` file with details of the license. 
+
+```
+License: MIT + file LICENSE
+```
+
+---
+
+## Recap
+
+We've finished updating our `DESCRIPTION` file! `r emo::ji("tada")`
+
+It should look a bit like this:
+
+```
+Package: rrcompendium
+Title: Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 
+    with rrtools
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Anna",
+           family = "Krystalli",
+           role = c("aut", "cre"),
+           email = "annakrystalli@googlemail.com")
+Description: This repository contains the research compendium of the partial 
+    reproduction of Boettiger Ecology Letters 2018;21:1255–1267. The compendium 
+    contains all data, code, and text associated with this sub-section of the 
+    analysis.
+License: MIT + file LICENSE
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+
+```
+
+and your project folder should contain:
+
+```
+.
+├── DESCRIPTION
+├── LICENSE
+├── LICENSE.md
+├── NAMESPACE
+├── R
+├── man
+└── rrcompendium.Rproj
+```
+
+Let's commit our work and move on to preparing our compendium for sharing on GitHub.
