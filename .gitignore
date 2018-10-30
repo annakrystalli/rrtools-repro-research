@@ -2,3 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
+assets/*
+analysis/*html
+analysis/data
+analysis/outline.Rmd
+analysis/pack*
+code
+.DS_*
