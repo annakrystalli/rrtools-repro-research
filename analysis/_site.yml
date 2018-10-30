@@ -3,20 +3,35 @@ output_dir: "../docs"
 include: [".nojekyll"]
 exclude: ["include"]
 navbar:
-  title: "rrtools-repro-research"
+  title: "intro-r-gis"
   left:
     - text: "Home"
       href: index.html
-    - text: "About"
-      href: about.html
-    - text: "License"
-      href: license.html
+    - text: "Handouts"
+      icon: fa-gear
+      menu:
+        - text: "Workshop Sections"
+        - text: "Welcome"
+          href: intro.html
+        - text: "Create a compendium"
+          href: create-compendium.html
+        - text: "Prepare compendium for GitHub"
+          href: version-control-sharing.html 
+        - text: "Set up analysis"
+          href: analysis.html   
+        - text: "---------"
+        - text: "Manage functionality as a package"
+          href: package.html
+        - text: "Create paper"
+          href: paper.html
   right:
+    - text: "Get Workshop Data"
+      href: https://github.com/annakrystalli/gis-workshop/archive/master.zip
     - icon: fa-github
-      href: https://github.com/jdblischak/workflowr
+      href: https://bit.ly/rrtools_wks
 output:
-  workflowr::wflow_html:
+  html_document:
     toc: true
     toc_float: true
-    theme: cosmo
+    theme: cerulean
     highlight: textmate
