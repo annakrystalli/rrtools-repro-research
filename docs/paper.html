@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Reproduce paper in Rmd</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reproducible Research with rrtools</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    Handouts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Workshop Sections</li>
+    <li>
+      <a href="intro.html">Welcome</a>
+    </li>
+    <li>
+      <a href="create-compendium.html">Create a compendium</a>
+    </li>
+    <li>
+      <a href="package.html">Manage functionality as a package</a>
+    </li>
+    <li>
+      <a href="paper.html">Create a reproducible paper</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://bit.ly/rrtools_wks">Get Workshop Data</a>
+</li>
+<li>
+  <a href="https://github.com/annakrystalli/rrtools-repro-research">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Reproduce paper in Rmd</h1>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2018-10-30</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181015)</code> </summary></p>
+<p>The command <code>set.seed(20181015)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/f7c3c51e84da27395cc096b2e4d0a115350abce4" target="_blank">f7c3c51</a> </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/data/
+    Ignored:    analysis/package.Rmd
+    Ignored:    assets/
+    Ignored:    docs/.DS_Store
+
+Untracked files:
+    Untracked:  docs/assets/Boettiger-2018-Ecology_Letters.pdf
+    Untracked:  docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Modified:   analysis/index.Rmd
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</details>
+</li>
+</ul>
+<details>
+<summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/f7c3c51e84da27395cc096b2e4d0a115350abce4/analysis/paper.Rmd" target="_blank">f7c3c51</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-30
+</td>
+<td style="text-align:left;">
+commit final draft
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+</details>
+<hr />
+<p>In this section we’re going to <strong>create a literate programming document to reproduce the paper</strong> in a format suitable for <strong>journal submission</strong> or as a <strong>pre-print</strong>. We’ll do this using the course materials we downloaded.</p>
+<p>In particular, we’re going to <strong>combine</strong> the <strong>code in <code>analysis.R</code></strong>, the <strong><code>text</code> in <code>paper.txt</code></strong> and the <strong>references in the <code>refs.bib</code></strong> file in an <code>.Rmd</code> document to reproduce <a href="https://github.com/annakrystalli/rrtools-wkshp-materials/blob/master/paper.pdf"><code>paper.pdf</code></a>.</p>
+<p>More information on working on <a href="https://bookdown.org/yihui/rmarkdown/journals.html">academic journals with Bookdown</a></p>
+<p><br></p>
+<div id="create-journal-article-template-using-rticles" class="section level2">
+<h2>Create journal article template using <code>rticles</code></h2>
+<p>The <code>rticles</code> package is designed to <strong>simplify the creation of documents that conform to submission standards</strong>. A suite of custom R Markdown templates for popular journals is provided by the package.</p>
+<p><br></p>
+<div id="delete-paper-subdirectory" class="section level3">
+<h3>delete <code>paper/</code> subdirectory</h3>
+<p>First, let’s <strong>delete the current <code>analysis/paper</code> folder</strong> as we’re going to create a new <code>paper.Rmd</code> template.</p>
+<p><br></p>
+</div>
+<div id="create-new-paper-template" class="section level3">
+<h3>create new paper template</h3>
+<p>This particular paper was published in Ecology Letters, an Elsevier Journal. We can <strong>create a new paper.Rmd template</strong> from the templates provided by <code>rticles</code> package.</p>
+<p>We can use the <strong>New R Markdown</strong> dialog</p>
+<p>Select:</p>
+<ul>
+<li><strong>Template:</strong> Elesevier Journal Article</li>
+<li><strong>Name:</strong> paper</li>
+<li><strong>Location:</strong> <code>~/Documents/workflows/rrcompendium/analysis</code></li>
+</ul>
+<p><img src="assets/rticle.png" /></p>
+<p>Or we can use <code>rmarkdown::draft()</code> to create articles:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">rmarkdown<span class="op">::</span><span class="kw">draft</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>,<span class="st">&quot;paper.Rmd&quot;</span>), <span class="dt">template =</span> <span class="st">&quot;elsevier_article&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;rticles&quot;</span>)</a></code></pre></div>
+<p>Both these functions create the following files in a new directory <code>analysis/paper</code>.</p>
+<pre><code>analysis/paper
+├── elsarticle.cls
+├── mybibfile.bib
+├── numcompress.sty
+└── paper.Rmd</code></pre>
+<ul>
+<li><p>The <code>elsarticle.cls</code> contains contains the citation language style for the references.</p></li>
+<li><p>The <code>mybibfile.bib</code> contains an example reference list.</p></li>
+<li><p>The new <code>paper.Rmd</code> is the file we will be working in.</p></li>
+</ul>
+<p>Let’s open it up and start editing it.</p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="update-yaml" class="section level2">
+<h2>Update YAML</h2>
+<p>The <strong>YAML header in <code>Paper.Rmd</code></strong> contains <strong>document wide metadata</strong> and is pre-populated with some fields relevant to an academic publication.</p>
+<pre><code>
+---
+title: Short Paper
+author:
+  - name: Alice Anonymous
+    email: alice@example.com
+    affiliation: Some Institute of Technology
+    footnote: Corresponding Author
+  - name: Bob Security
+    email: bob@example.com
+    affiliation: Another University
+address:
+  - code: Some Institute of Technology
+    address: Department, Street, City, State, Zip
+  - code: Another University
+    address: Department, Street, City, State, Zip
+abstract: |
+  This is the abstract.
+
+  It consists of two paragraphs.
+
+journal: &quot;An awesome journal&quot;
+date: &quot;2018-10-30&quot;
+bibliography: mybibfile.bib
+output: rticles::elsevier_article
+---</code></pre>
+<p>Here we’re <strong>going to reproduce <code>paper.pdf</code> as is</strong>, so we’ll actually be editing the file with <strong>details from the original publication</strong>.</p>
+<p>First, let’s <strong>clear all text BELOW the YAML header</strong> (which is <strong>delimited by <code>---</code></strong>. DO NOT delete the YAML header).</p>
+<p>Next, let’s <strong>open <code>paper.txt</code></strong> from the course material which contains all text from the in <code>paper.pdf</code>. We can <strong>use it to complete some of the fields in the YAML header</strong>.</p>
+<p><br></p>
+<div id="title" class="section level3">
+<h3>title</h3>
+<p>Add the paper title to this field</p>
+<pre><code>title: &quot;From noise to knowledge: how randomness generates novel phenomena and reveals information&quot;
+</code></pre>
+<p><br></p>
+</div>
+<div id="author" class="section level3">
+<h3>author</h3>
+<p>Here we specify author details.</p>
+<pre><code>author:
+  - name: &quot;Carl Boettiger&quot;
+    affiliation: a
+    email: &quot;cboettig@berkeley.edu&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="address" class="section level3">
+<h3>address</h3>
+<p>Here we <strong>specify the addresses associated with the affiliations</strong> specified in <code>authors</code></p>
+<pre><code>address:
+  - code: a
+    address: &quot;Dept of Environmental Science, Policy, and Management, University of California Berkeley, Berkeley CA 94720-3114, USA&quot;</code></pre>
+<p>Note that the field <code>code</code> in <code>address</code> cross-references with the affiliations specified in <code>author</code>.</p>
+<p><br></p>
+</div>
+<div id="bibliography" class="section level3">
+<h3>bibliography</h3>
+<p>Before specifying the bibliography, we need to <strong>copy the <code>refs.bib</code></strong> file associated with <code>paper.pdf</code> from the course materials and <strong>save it in our <code>analysis/paper</code></strong> subdirectory.</p>
+<p>Next we can set the <code>refs.bib</code> as the source for our paper’s bibliograpraphy:</p>
+<pre><code>bibliography: refs.bib</code></pre>
+<p><br></p>
+</div>
+<div id="layout" class="section level3">
+<h3>layout</h3>
+<p>We can add an additional field called <code>layout</code> which specifies the <strong>layout of the output</strong> and takes the following values.</p>
+<ul>
+<li><strong>review:</strong> doublespace margins</li>
+<li><strong>3p:</strong> singlespace margins</li>
+<li><strong>5p:</strong> two-column</li>
+</ul>
+<p>Let’s <strong>use singlespace margins</strong></p>
+<pre><code>layout:  3p</code></pre>
+<p><br></p>
+</div>
+<div id="preamble" class="section level3">
+<h3>preamble</h3>
+<p>We can add also an additional field called <strong><code>preamble</code></strong>. This <strong>allows us to include LaTeX packages and functions</strong>. We’ll use the following to <strong>add linenumbers and doublespacing</strong>.</p>
+<pre><code>preamble: |
+  \usepackage[nomarkers]{endfloat}
+  \linenumbers
+  \usepackage{setspace}
+  \doublespacing</code></pre>
+<p><br></p>
+</div>
+<div id="abstract" class="section level3">
+<h3>abstract</h3>
+<p>This field should <strong>contain the abstract</strong></p>
+<pre><code>abstract: |
+
+  # Abstract
+  
+  Noise, as the term itself suggests, is most often seen a nuisance to ecological insight, a inconvenient reality that must be acknowledged, a haystack that must be stripped away to reveal the processes of interest underneath. Yet despite this well-earned reputation, noise is often interesting in its own right: noise can induce novel phenomena that could not be understood from some underlying determinstic model alone.  Nor is all noise the same, and close examination of differences in frequency, color or magnitude can reveal insights that would otherwise be inaccessible.  Yet with each aspect of stochasticity leading to some new or unexpected behavior, the time is right to move beyond the familiar refrain of &quot;everything is important&quot; (Bjørnstad &amp; Grenfell 2001).  Stochastic phenomena can suggest new ways of inferring process from pattern, and thus spark more dialog between theory and empirical perspectives that best advances the field as a whole. I highlight a few compelling examples, while observing that the study of stochastic phenomena are only beginning to make this translation into empirical inference.  There are rich opportunities at this interface in the years ahead.  
+</code></pre>
+</div>
+<div id="output" class="section level3">
+<h3>output</h3>
+<p>The <strong>output format</strong>. In this case, the template is correctly pre-populated with <code>rticles::elsevier_article</code> so no need to edit.</p>
+<pre><code>output: rticles::elsevier_article</code></pre>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="add-text" class="section level2">
+<h2>Add text</h2>
+<p>Now let’s <strong>add the main body of the paper from <code>paper.txt</code></strong>.</p>
+<p><br></p>
+<div id="add-new-page-after-abstract" class="section level3">
+<h3>add new page after abstract</h3>
+<p>First, let’s a add a new page after the abstract using:</p>
+<pre><code>\newpage
+</code></pre>
+<p><br></p>
+</div>
+<div id="copy-and-paste-text-from-paper.txt" class="section level3">
+<h3>copy and paste text from <code>paper.txt</code></h3>
+<p>We do not need the details we’ve just completed the YAML with, so ignore the title, abstract etc and just copy everything in <code>paper.txt</code> <strong>from the Introduction header down to and including the reference section header</strong>.</p>
+<pre><code># Introduction: Noise the nuisance
+
+To many, stochasticity, or more simply, noise,
+is just that -- something which obscures patterns we are
+
+...
+...
+...
+...
+...
+
+# Acknowledgements
+
+The author acknowledges feedback and advice from the editor,
+Tim Coulson and two anonymous reviewers. This work was supported in
+part by  USDA National Institute of Food and Agriculture, Hatch
+project CA-B-INS-0162-H.
+
+# References
+</code></pre>
+</div>
+<div id="check-pdf-output" class="section level3">
+<h3>Check pdf output</h3>
+<p>Let’s knit our document and have our first look at the resulting pdf by clicking on the <strong>Knit</strong> tab.</p>
+<p><br></p>
+</div>
+<div id="update-references" class="section level3">
+<h3>Update references</h3>
+<p>Next we’ll replace the flat citations in the text with real linked citation which can be used to <strong>auto-generate formatted inline citations and the references section</strong>.</p>
+<div id="insert-formatted-citations" class="section level4">
+<h4>Insert formatted citations</h4>
+<p>We’ll use the <strong><code>citr</code> package</strong>, which provides functions and an RStudio addin to search a BibTeX-file to <strong>create and insert formatted Markdown citations</strong> into the current document.</p>
+<p>Once <code>citr</code> is installed and you have restarted your R session, the addin appears in the addin menu. The <strong>addin will automatically look up the Bib(La)TeX-file(s) specified in the YAML front matter</strong>.</p>
+<div id="to-insert-a-citation" class="section level5">
+<h5>To insert a citation</h5>
+<ol style="list-style-type: decimal">
+<li><p><strong>Select text</strong> to replace with a citation</p></li>
+<li><p><strong>Launch <code>citr</code> addin</strong>: <img src="assets/citr-addin.png" width="700px"></p></li>
+<li><p><strong>Search</strong> for citation to insert <img src="assets/citr-select.png" width="700px"></p></li>
+<li><p><strong>Select</strong> citation to insert <img src="assets/citr-insert.png" width="700px"></p></li>
+<li><p><strong>Insert</strong> citation <img src="assets/citr-inserted.png" width="700px"></p></li>
+</ol>
+<p><strong>Carry on updating the rest of the citations</strong>. Don’t forget to check the abstract for citations!</p>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="update-math" class="section level3">
+<h3>Update math</h3>
+<p>For the sake of time today, and not to open this topic too deeply here, I’ve included the following <strong>LaTex equation syntax</strong> in the text:</p>
+<pre><code>\begin{align}
+\frac{\mathrm{d} n}{\mathrm{d} t} = \underbrace{c n \left(1 - \frac{n}{N}\right)}_{\textrm{birth}} - \underbrace{e n}_{\textrm{death}}, \label{levins}
+\end{align}</code></pre>
+<p>that <strong>generates equation 1 in the <code>paper.pdf</code></strong>.</p>
+<p><span class="math display">\[\begin{align}
+\frac{\mathrm{d} n}{\mathrm{d} t} = \underbrace{c n \left(1 - \frac{n}{N}\right)}_{\textrm{birth}} - \underbrace{e n}_{\textrm{death}}, \label{levins}
+\end{align}\]</span></p>
+<p>So you don’t need to edit anything here.</p>
+<p>Check <a href="https://bookdown.org/yihui/rmarkdown/markdown-syntax.html#math-expressions">Math expressions</a> and <a href="https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html">Markdown extensions by bookdown</a> for more information. <br></p>
+<div id="update-inline-math" class="section level4">
+<h4>update inline math</h4>
+<p><strong>Inline LaTeX equations and parameters</strong> can be written <strong>between a pair of dollar signs</strong> using the LaTeX syntax, e.g., <code>$f(x) = 1/x$</code> generates <span class="math inline">\(f(x) = 1/x\)</span>.</p>
+<p>Using <code>paper.pdf</code> to identify mathematical expressions in the text (generally they appear in italic), <strong>edit your <code>paper.Rmd</code>, enclosing them between dollar signs</strong>.</p>
+</div>
+</div>
+<div id="check-pdf-output-1" class="section level3">
+<h3>Check pdf output</h3>
+<p>Let’s knit our document to <strong>check our references and maths annotations</strong> have been updated correctly by clicking on the <strong>Knit</strong> tab.</p>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="add-code" class="section level2">
+<h2>Add code</h2>
+<p>Now that we’ve set up the text for our paper, let’s <strong>insert the code to generate figure 1.</strong></p>
+<p><br></p>
+<div id="add-libraries-chunk" class="section level3">
+<h3>Add <code>libraries</code> chunk</h3>
+<p>First let’s insert a <code>libraries</code> code chunk right at the top of the document to set up our analysis. Because it’s a setup chunk we set <code>include = F</code> which suppresses all output resulting from chunk evaluation.</p>
+<pre><code>  ```{r libraries, include=FALSE}
+    
+ ```</code></pre>
+<div id="set-document-chunk-options" class="section level4">
+<h4>set document chunk options</h4>
+<p>Now, let’s set some <code>knitr</code> options for the whole document by adding the following code to our <code>libraries</code> chunk:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">echo =</span> <span class="ot">FALSE</span>, <span class="dt">message=</span><span class="ot">FALSE</span>, <span class="dt">warning=</span><span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">                      <span class="dt">dev=</span><span class="st">&quot;cairo_pdf&quot;</span>, <span class="dt">fig.width=</span><span class="dv">7</span>, <span class="dt">fig.height=</span><span class="fl">3.5</span>)</a></code></pre></div>
+<p>We’re setting default chunk options to:</p>
+<ul>
+<li><code>echo = FALSE</code></li>
+<li><code>message = FALSE</code></li>
+<li><code>warning = FALSE</code></li>
+</ul>
+<p>to suppress code, warnings and messages in the output, and</p>
+<ul>
+<li><code>dev=&quot;cairo_pdf&quot;</code></li>
+<li><code>fig.width=7</code></li>
+<li><code>fig.height=3.5</code></li>
+</ul>
+<p>to specify how figures will appear.</p>
+</div>
+<div id="add-libraries" class="section level4">
+<h4>add libraries</h4>
+<p>Copy and paste the <strong>code for loading all the libraries from <code>analysis.R</code></strong>. Add library <code>rrcompendium</code> so we can access function <code>recode_system_size</code>. The <code>libraries</code> chunk should now look like so:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">echo =</span> <span class="ot">FALSE</span>, <span class="dt">message=</span><span class="ot">FALSE</span>, <span class="dt">warning=</span><span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">                      <span class="dt">dev=</span><span class="st">&quot;cairo_pdf&quot;</span>, <span class="dt">fig.width=</span><span class="dv">7</span>, <span class="dt">fig.height=</span><span class="fl">3.5</span>)</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="kw">library</span>(ggthemes)</a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="kw">library</span>(rrcompendium)</a></code></pre></div>
+<p><br></p>
+</div>
+</div>
+<div id="add-set-theme-chunk" class="section level3">
+<h3>Add <code>set-theme</code> chunk</h3>
+<p>Right below the <code>libraries</code> chunk, <strong>insert a new chunk and call it <code>set-theme</code></strong></p>
+<p>Copy the <strong>code to set the plot theme</strong> and pasted into the <code>set-theme</code> code:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">theme_set</span>(<span class="kw">theme_grey</span>())</a></code></pre></div>
+<p><br></p>
+</div>
+<div id="add-figure1-chunk" class="section level3">
+<h3>Add <code>figure1</code> chunk</h3>
+<p>Now <strong>scroll down</strong> towards the bottom of the document and <strong>create a new chunk just above the Conclusions</strong> section. Call it <strong><code>figure1</code></strong></p>
+<div id="add-code-1" class="section level4">
+<h4>Add code</h4>
+<p>Copy and <strong>paste the remaining code into a new chunk which will create figure 1</strong>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="co"># create colour palette</span></a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">colours &lt;-<span class="st"> </span><span class="kw">ptol_pal</span>()(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co"># load-data</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;gillespie.csv&quot;</span>), <span class="dt">col_types =</span> <span class="st">&quot;cdiddd&quot;</span>)  </a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co"># recode-data</span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">system_size =</span> <span class="kw">recode</span>(system_size, <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>)) </a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co"># plot-gillespie</span></a>
+<a class="sourceLine" id="cb19-12" data-line-number="12">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> mean), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-15" data-line-number="15"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> minus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> plus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n), <span class="dt">col=</span>colours[<span class="dv">1</span>]) <span class="op">+</span></a>
+<a class="sourceLine" id="cb19-18" data-line-number="18"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>system_size, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) </a></code></pre></div>
+</div>
+<div id="edit-code" class="section level4">
+<h4>edit code</h4>
+<p>Edit the code to</p>
+<ul>
+<li><p>update the path to <code>gillespie.csv</code></p></li>
+<li><p>streamline the code to a single pipe to include <code>recode_system_size</code></p></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,<span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>), </a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">         <span class="dt">col_types =</span> <span class="st">&quot;cdiddd&quot;</span>)  <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="st">    </span><span class="co"># recode-data</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="st">    </span><span class="kw">recode_system_size</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">    </span><span class="co"># plot-gillespie</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="st">    </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> mean), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="st">    </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> minus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9"><span class="st">    </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> plus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n), <span class="dt">col=</span>colours[<span class="dv">1</span>]) <span class="op">+</span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>system_size, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) </a></code></pre></div>
+</div>
+<div id="add-caption" class="section level4">
+<h4>Add caption</h4>
+<p>Finally, let’s update chunk <code>figure1</code> to <strong>include a figure caption</strong>. The text for the caption is at the bottom of <code>paper.txt</code>. We can include it in the chunk header through <strong>chunk option <code>fig.cap</code></strong> like so:</p>
+<pre><code>  ```{r figure1, figure1, fig.cap=&quot;Population dynamics from a Gillespie simulation of the Levins model with large (N=1000, panel A) and small (N=100, panel B) number of sites (blue) show relatively weaker effects of demographic noise in the bigger system. Models are otherwise identical, with e = 0.2 and c = 1 (code in appendix A). Theoretical predictions for mean and plus/minus one standard deviation shown in horizontal re dashed lines.&quot;} ```</code></pre>
+<p><br></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="render-final-document-to-pdf" class="section level2">
+<h2>Render final document to pdf</h2>
+<p>Let’s <strong>check our final work by re-knitting to <code>pdf</code></strong>. You should be looking at something that looks a lot like <code>paper.pdf</code></p>
+<p><br></p>
+<hr />
+</div>
+<div id="add-paper-dependencies" class="section level2">
+<h2>Add paper dependencies</h2>
+<p>Finally, before we’re finished, let’s ensure the additional dependencies introduced in the paper are included. We can use <code>rrtools::add_dependencies_to_description()</code></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">rrtools<span class="op">::</span><span class="kw">add_dependencies_to_description</span>()</a></code></pre></div>
+<p>This function <strong>scans script files (<code>.R</code>, <code>.Rmd</code>, <code>.Rnw</code>, <code>.Rpres</code>, etc.) for external package dependencies</strong> indicated by <code>library()</code>, <code>require()</code> or <code>::</code> and <strong>adds those packages to the <code>Imports</code> field in the package <code>DESCRIPTION</code></strong>:</p>
+<pre><code>Imports: 
+    bookdown,
+    dplyr,
+    ggplot2 (&gt;= 3.0.0),
+    ggthemes (&gt;= 3.5.0),
+    here (&gt;= 0.1),
+    knitr (&gt;= 1.20),
+    rticles (&gt;= 0.6)
+    </code></pre>
+<div id="install-and-restart" class="section level4">
+<h4>🔨 <strong>Install and Restart</strong></h4>
+</div>
+<div id="commit-and-push-to-github" class="section level4">
+<h4>Commit and push to GitHub!</h4>
+</div>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
