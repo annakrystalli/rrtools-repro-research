@@ -3,7 +3,7 @@ output_dir: "../docs"
 include: [".nojekyll"]
 exclude: ["include"]
 navbar:
-  title: "intro-r-gis"
+  title: "Reproducible Research with rrtools"
   left:
     - text: "Home"
       href: index.html
@@ -26,12 +26,12 @@ navbar:
           href: paper.html
   right:
     - text: "Get Workshop Data"
-      href: https://github.com/annakrystalli/gis-workshop/archive/master.zip
-    - icon: fa-github
       href: https://bit.ly/rrtools_wks
+    - icon: fa-github
+      href: https://github.com/annakrystalli/rrtools-repro-research
 output:
-  html_document:
+  workflowr::wflow_html:
     toc: true
     toc_float: true
     theme: cerulean
-    highlight: textmate
+    highlight: tango
