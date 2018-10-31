@@ -1,5 +1,5 @@
 ---
-title: "Reproduce paper in Rmd"
+title: "Reproduce a paper in Rmd"
 output: html_document
 ---
 ```{r setup, include=FALSE}
