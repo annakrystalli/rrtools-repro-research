@@ -11,12 +11,41 @@ output:
 ### 31st October, Northwest Universities R Day
 
 
+---
+
+<br>
+
+## **Workshop Outline**
+
+- ### [**Welcome**](https://annakrystalli.me/rrtools-repro-research/intro.html)
+- ### [**Create a Research Compendium**](https://annakrystalli.me/rrtools-repro-research/create-compendium.html)
+- ### [**Manage functionality as a package**](https://annakrystalli.me/rrtools-repro-research/package.html)
+- ### [**Reproduce a paper in Rmd**](https://annakrystalli.me/rrtools-repro-research/paper.html)
+
+<br>
 
 
-### Setup
+---
+
+### Level
+
+Intermediate
+
+### Prerequisites:
+
+Familiarity with Version Control through RStudio and rmarkdown.
 
 
-
-System Requirements:
+### System Requirements:
 
 Pandoc (>= 1.17.2)
+LaTeX
+
+If you don't have LaTeX installed, consider installing `TinyTeX`, a custom LaTeX distribution based on TeX Live that is small in size but functions well in most cases, especially for R users. 
+
+```{r, eval=FALSE}
+install.packages('tinytex')
+tinytex::install_tinytex()
+```
+
+Check [docs](https://yihui.name/tinytex/) before before installing.
