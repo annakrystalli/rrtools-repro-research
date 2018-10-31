@@ -59,13 +59,17 @@ output: html_document
 > R packages can be used as a research compendium for organising and sharing files!
 
 
-1. [_Wickham, H. (2017) Research compendia. Note prepared for the 2017 rOpenSci Unconf_](https://docs.google.com/document/d/1LzZKS44y4OEJa4Azg5reGToNAZL0e0HSUwxamNY7E-Y/edit#heading=h.blggi16hdosp)
+1. _Wickham, H. (2017) [Research compendia. Note prepared for the 2017 rOpenSci Unconf_](https://docs.google.com/document/d/1LzZKS44y4OEJa4Azg5reGToNAZL0e0HSUwxamNY7E-Y/edit#heading=h.blggi16hdosp)
 
 
-2. Ben Marwick, Carl Boettiger & Lincoln Mullen (2018) _Packaging Data Analytical Work Reproducibly Using R (and Friends)_, The American Statistician, 72:1, 80-88, DOI: <10.1080/00031305.2017.1375986>
+2. Ben Marwick, Carl Boettiger & Lincoln Mullen (2018) [_Packaging Data Analytical Work Reproducibly Using R (and Friends)_](https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1375986?journalCode=utas20), The American Statistician, 72:1, 80-88, DOI: <10.1080/00031305.2017.1375986>
 
-3. Practical response: `rrtools`!!
 
+<img src="assets/marw_f3.jpeg" width="300px">
+
+_Example use of the R package structure for a research compendium_ (source Marwick _et al_, 2018)
+
+<br>
 
 ## Enter `rrtools`
 
@@ -147,8 +151,28 @@ By the end of the workshop, you should be able to:
 
 ---
 
+### Level
+
+Intermediate
+
+### Prerequisites:
+
+Familiarity with Version Control through RStudio and rmarkdown.
 
 
+### System Requirements:
+
+Pandoc (>= 1.17.2)
+LaTeX
+
+If you don't have LaTeX installed, consider installing `TinyTeX`, a custom LaTeX distribution based on TeX Live that is small in size but functions well in most cases, especially for R users. 
+
+```{r, eval=FALSE}
+install.packages('tinytex')
+tinytex::install_tinytex()
+```
+
+Check [docs](https://yihui.name/tinytex/) before before installing.
 
 ## Let's dive in!
 

@@ -703,22 +703,4 @@ We can replace the supplied `csl` file with a different citation style from <htt
 
 ***
 
-## Setup data
-
-<br>
-
-### Copy data to `data/`
-
-At this point, let's copy `gillespie.csv` from the course materials you downloaded in `rrtools-wkshp-materials-master/` to the subfolder `analysis/data/raw_data/` in `rrcompendium`
-
-Your data folder should now look like this:
-
-```
-analysis/data
-├── DO-NOT-EDIT-ANY-FILES-IN-HERE-BY-HAND
-├── derived_data
-└── raw_data
-    └── gillespie.csv
-```
-
 Next, let's set up functionality as a [package](package.html)!
