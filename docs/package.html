@@ -11,7 +11,7 @@
 
 
 
-<title>Set up functionality as a package</title>
+<title>Manage functionality as a package</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -346,7 +346,7 @@ div.tocify {
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Workshop Sections</li>
     <li>
-      <a href="intro.html">Welcome</a>
+      <a href="intro.html">Welcome &amp; Background</a>
     </li>
     <li>
       <a href="create-compendium.html">Create a compendium</a>
@@ -386,12 +386,12 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Set up functionality as a package</h1>
+<h1 class="title toc-ignore">Manage functionality as a package</h1>
 
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-10-30</p>
+<p><strong>Last updated:</strong> 2018-10-31</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -419,7 +419,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/f7c3c51e84da27395cc096b2e4d0a115350abce4" target="_blank">f7c3c51</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/d3f45b6cdcf84825e35310c60409b34658cfd834" target="_blank">d3f45b6</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -435,6 +435,8 @@ Ignored files:
 Untracked files:
     Untracked:  docs/assets/Boettiger-2018-Ecology_Letters.pdf
     Untracked:  docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
+    Untracked:  docs/css/
+    Untracked:  libs/
 
 Unstaged changes:
     Modified:   analysis/_site.yml
@@ -469,6 +471,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/package.html" target="_blank">52adf4f</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-30
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 html
@@ -524,6 +543,37 @@ commit docs
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n), <span class="dt">col=</span>colours[<span class="dv">1</span>]) <span class="op">+</span></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>system_size, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) </a></code></pre></div>
 <p><img src="figure/package.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details>
+<summary><em>Expand here to see past versions of unnamed-chunk-5-1.png:</em></summary>
+<table style = "border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/figure/package.Rmd/unnamed-chunk-5-1.png" target="_blank">52adf4f</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-30
+</td>
+</tr>
+</tbody>
+</table>
+</details>
 <p>In this section, we’re going <strong>create a simple function to replace the recoding step in the analysis</strong>, document it, check it, test and make it available as a package!</p>
 <p><br></p>
 <hr />
@@ -991,15 +1041,15 @@ analysis</code></pre>
 <a class="sourceLine" id="cb48-13" data-line-number="13">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
 <a class="sourceLine" id="cb48-14" data-line-number="14">                 <span class="kw">dim</span>(data))</a>
 <a class="sourceLine" id="cb48-15" data-line-number="15">})</a></code></pre></div>
-<p>Because we’re using <code>read_csv</code> from <code>readr</code> in our tests, let’s <strong>add it as a suggested dependency by specifying type <code>Suggests</code></strong>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">use_package</span>(<span class="st">&quot;readr&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;Suggests&quot;</span>)</a></code></pre></div>
+<p>Because we’re using <code>read_csv</code> from <code>readr</code> in our tests, let’s <strong>add it as a dependency by specifying type <code>Suggests</code></strong>.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">use_package</span>(<span class="st">&quot;readr&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
-✔ Adding &#39;readr&#39; to Suggests field in DESCRIPTION
-● Use `requireNamespace(&quot;readr&quot;, quietly = TRUE)` to test if package is installed
-● Then use `readr::fun()` to refer to functions.</code></pre>
+✔ Adding &#39;readr&#39; to Imports field in DESCRIPTION
+● Refer to functions with `readr::fun()`</code></pre>
 <p>Our <code>DESCRIPTION</code> file now contains:</p>
-<pre><code>Suggests: 
-    testthat,
+<pre><code>Imports: 
+    bookdown,
+    dplyr,
     readr</code></pre>
 <p>Once our tests are saved, we’re ready to test our package! 😃</p>
 <p><br></p>
