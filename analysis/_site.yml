@@ -11,7 +11,7 @@ navbar:
       icon: fa-gear
       menu:
         - text: "Workshop Sections"
-        - text: "Welcome"
+        - text: "Welcome & Background"
           href: intro.html
         - text: "Create a compendium"
           href: create-compendium.html
