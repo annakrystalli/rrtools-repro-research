@@ -424,7 +424,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/d3f45b6cdcf84825e35310c60409b34658cfd834" target="_blank">d3f45b6</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/4d17ca9ea68c6641932f5758279e739d931c67f5" target="_blank">4d17ca9</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -476,6 +476,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/c26c9360887245207869d7cd79130f334488a96a/docs/intro.html" target="_blank">c26c936</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-31
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -607,10 +624,12 @@ commit Rmd
 <p>R packages can be used as a research compendium for organising and sharing files!</p>
 </blockquote>
 <ol style="list-style-type: decimal">
-<li><p><a href="https://docs.google.com/document/d/1LzZKS44y4OEJa4Azg5reGToNAZL0e0HSUwxamNY7E-Y/edit#heading=h.blggi16hdosp"><em>Wickham, H. (2017) Research compendia. Note prepared for the 2017 rOpenSci Unconf</em></a></p></li>
-<li><p>Ben Marwick, Carl Boettiger &amp; Lincoln Mullen (2018) <em>Packaging Data Analytical Work Reproducibly Using R (and Friends)</em>, The American Statistician, 72:1, 80-88, DOI: &lt;10.1080/00031305.2017.1375986&gt;</p></li>
-<li><p>Practical response: <code>rrtools</code>!!</p></li>
+<li><p>_Wickham, H. (2017) <a href="https://docs.google.com/document/d/1LzZKS44y4OEJa4Azg5reGToNAZL0e0HSUwxamNY7E-Y/edit#heading=h.blggi16hdosp">Research compendia. Note prepared for the 2017 rOpenSci Unconf_</a></p></li>
+<li><p>Ben Marwick, Carl Boettiger &amp; Lincoln Mullen (2018) <a href="https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1375986?journalCode=utas20"><em>Packaging Data Analytical Work Reproducibly Using R (and Friends)</em></a>, The American Statistician, 72:1, 80-88, DOI: &lt;10.1080/00031305.2017.1375986&gt;</p></li>
 </ol>
+<p><img src="assets/marw_f3.jpeg" width="300px"></p>
+<p><em>Example use of the R package structure for a research compendium</em> (source Marwick <em>et al</em>, 2018)</p>
+<p><br></p>
 </div>
 <div id="enter-rrtools" class="section level2">
 <h2>Enter <code>rrtools</code></h2>
@@ -681,12 +700,28 @@ commit Rmd
 </blockquote>
 <p><strong>Jenny Bryan</strong> on <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/">Project-oriented workflows</a></p>
 <hr />
+<div id="level" class="section level3">
+<h3>Level</h3>
+<p>Intermediate</p>
+</div>
+<div id="prerequisites" class="section level3">
+<h3>Prerequisites:</h3>
+<p>Familiarity with Version Control through RStudio and rmarkdown.</p>
+</div>
+<div id="system-requirements" class="section level3">
+<h3>System Requirements:</h3>
+<p>Pandoc (&gt;= 1.17.2) LaTeX</p>
+<p>If you don’t have LaTeX installed, consider installing <code>TinyTeX</code>, a custom LaTeX distribution based on TeX Live that is small in size but functions well in most cases, especially for R users.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;tinytex&#39;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">tinytex<span class="op">::</span><span class="kw">install_tinytex</span>()</a></code></pre></div>
+<p>Check <a href="https://yihui.name/tinytex/">docs</a> before before installing.</p>
+</div>
 <div id="lets-dive-in" class="section level2">
 <h2>Let’s dive in!</h2>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>R version 3.4.4 (2018-03-15)
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 Running under: macOS High Sierra 10.13.3

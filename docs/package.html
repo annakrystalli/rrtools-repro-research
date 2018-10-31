@@ -419,7 +419,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/d3f45b6cdcf84825e35310c60409b34658cfd834" target="_blank">d3f45b6</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/4d17ca9ea68c6641932f5758279e739d931c67f5" target="_blank">4d17ca9</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -476,6 +476,23 @@ Message
 html
 </td>
 <td style="text-align:left;">
+<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/c26c9360887245207869d7cd79130f334488a96a/docs/package.html" target="_blank">c26c936</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-31
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
 <a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/package.html" target="_blank">52adf4f</a>
 </td>
 <td style="text-align:left;">
@@ -514,34 +531,48 @@ commit docs
 <p>The <strong>R package structure</strong> can help with providing a logical organisation of files, by <strong>providing a set of standard locations for certain types of files</strong>.</p>
 <p>To work with packages in RStudio we use the <strong>Build pane</strong>, which includes a variety of tools for <strong>building, documenting and testing packages</strong>. This will appear if Rstudio recognises the project as an R package.</p>
 <p><img src="assets/build-panel.png" height="200px"></p>
+<div id="setup-data" class="section level2">
+<h2>Setup data</h2>
+<p><br></p>
+<div id="copy-data-to-data" class="section level3">
+<h3>Copy data to <code>data/</code></h3>
+<p>To begin, let’s <strong>copy <code>gillespie.csv</code></strong> from the course materials you downloaded in <code>rrtools-wkshp-materials-master/</code> <strong>to the subfolder <code>analysis/data/raw_data/</code></strong> in <code>rrcompendium</code></p>
+<p>Your data folder should now look like this:</p>
+<pre><code>analysis/data
+├── DO-NOT-EDIT-ANY-FILES-IN-HERE-BY-HAND
+├── derived_data
+└── raw_data
+    └── gillespie.csv</code></pre>
+</div>
+</div>
 <div id="inspect-analysis.r-file" class="section level2">
 <h2>Inspect analysis.R file</h2>
-<p>Let’s open <code>analysis.R</code> in the course materials and run the code. The script has some <strong>initial setup</strong>, then <strong>loads the data</strong>, <strong>recodes one of the columns</strong> for plotting and then <strong>plots the results</strong> of the simulation, which <strong>generates figure 1 in <a href="https://github.com/annakrystalli/rrtools-wkshp-materials/blob/master/paper.pdf"><code>paper.pdf</code></a></strong>.</p>
+<p>Let’s also <strong>open <code>analysis.R</code></strong> in the course materials and run the code. The script has some <strong>initial setup</strong>, then <strong>loads the data</strong>, <strong>recodes one of the columns</strong> for plotting and then <strong>plots the results</strong> of the simulation, which <strong>generates figure 1 in <a href="https://github.com/annakrystalli/rrtools-wkshp-materials/blob/master/paper.pdf"><code>paper.pdf</code></a></strong>.</p>
 <div id="analysis.r" class="section level4">
 <h4><code>analysis.R</code></h4>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(ggthemes)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">theme_set</span>(<span class="kw">theme_grey</span>())</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># load-data</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;gillespie.csv&quot;</span>), <span class="dt">col_types =</span> <span class="st">&quot;cdiddd&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># create colour palette</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">colours &lt;-<span class="st"> </span><span class="kw">ptol_pal</span>()(<span class="dv">2</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># recode-data</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">system_size =</span> <span class="kw">recode</span>(system_size, </a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>, </a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">                              <span class="dt">small =</span> <span class="st">&quot;B. 100 total sites&quot;</span>)) </a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co"># plot-gillespie</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> mean), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> minus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> plus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n), <span class="dt">col=</span>colours[<span class="dv">1</span>]) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>system_size, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">library</span>(ggthemes)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">theme_set</span>(<span class="kw">theme_grey</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># load-data</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;gillespie.csv&quot;</span>), <span class="dt">col_types =</span> <span class="st">&quot;cdiddd&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># create colour palette</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">colours &lt;-<span class="st"> </span><span class="kw">ptol_pal</span>()(<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># recode-data</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">system_size =</span> <span class="kw">recode</span>(system_size, </a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>, </a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">                              <span class="dt">small =</span> <span class="st">&quot;B. 100 total sites&quot;</span>)) </a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co"># plot-gillespie</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> mean), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> minus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> plus_sd), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span>colours[<span class="dv">2</span>]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n), <span class="dt">col=</span>colours[<span class="dv">1</span>]) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>system_size, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) </a></code></pre></div>
 <p><img src="figure/package.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <details>
 <summary><em>Expand here to see past versions of unnamed-chunk-5-1.png:</em></summary>
@@ -586,7 +617,7 @@ annakrystalli
 <h3>create <code>.R</code> function script</h3>
 <p>First we <strong>need an <code>.R</code> file to write our function in</strong>.</p>
 <p>To create or edit <code>.R</code> files in the <code>R/</code> directory, we can use:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_r</span>(<span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_r</span>(<span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
 <pre><code>● Modify &#39;R/process-data.R&#39;</code></pre>
 <p>This <strong>creates a file called <code>process-data.R</code> in the <code>R/</code> directory and opens it up for editing</strong>.</p>
 <p><br></p>
@@ -595,17 +626,17 @@ annakrystalli
 <h3>write function</h3>
 <p>In this file, let’s now create the function to recode <code>system_size</code>.</p>
 <p>In particular, we can modify the following code from <code>analysis.R</code></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">system_size =</span> <span class="kw">recode</span>(system_size, </a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>, </a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">                              <span class="dt">small =</span> <span class="st">&quot;B. 100 total sites&quot;</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">system_size =</span> <span class="kw">recode</span>(system_size, </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>, </a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">                              <span class="dt">small =</span> <span class="st">&quot;B. 100 total sites&quot;</span>)) </a></code></pre></div>
 <p>into a function like so:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">    <span class="kw">mutate</span>(data,</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">    <span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb9-6" data-line-number="6">}</a></code></pre></div>
 <p>This takes a dataframe of the <strong>data as input</strong> and <strong>outputs a dataframe with the values of <code>system_size</code> recoded for plotting</strong>.</p>
 <p>Now, to <strong>have our function exported</strong> as part of the <code>rrcompendium</code> package, we need to document it using <code>Roxygen2</code>.</p>
 <p><br></p>
@@ -627,20 +658,20 @@ annakrystalli
 <p>In Rstudio, you can <strong>insert a roxygen skeleton by placing the cursor anywhere in the definition of a function</strong>, then clicking:</p>
 <pre><code>Code &gt; Insert Roxygen Skeleton</code></pre>
 <p>Applying this to our function results in this Roxygen skeleton:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">#&#39; Title</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&#39; @param data</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&#39; @return</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">    <span class="kw">mutate</span>(data,</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
-<a class="sourceLine" id="cb10-12" data-line-number="12">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
-<a class="sourceLine" id="cb10-14" data-line-number="14">}</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">#&#39; Title</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&#39; @param data</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&#39; @return</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">    <span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb11-12" data-line-number="12">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb11-13" data-line-number="13">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">}</a></code></pre></div>
 <p><br></p>
 </div>
 <div id="complete-roxygen-documentation" class="section level3">
@@ -679,22 +710,22 @@ annakrystalli
 <p>We’ll skip this for now but come back to it a bit later. Just <strong>remove the tag for now</strong>.</p>
 <p><br></p>
 <p>The <strong>completed function documentation should look something like this</strong>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co">#&#39; Recode system time variable</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&#39; Recode system time variable in dataframe containing data from file</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&#39; `gillespie.csv`</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&#39; @param data dataframe containing data from file</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&#39; `gillespie.csv`</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&#39; @return `data` with variable `system_size` recoded for</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&#39; plotting</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
-<a class="sourceLine" id="cb14-11" data-line-number="11">    <span class="kw">mutate</span>(data,</a>
-<a class="sourceLine" id="cb14-12" data-line-number="12">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
-<a class="sourceLine" id="cb14-13" data-line-number="13">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
-<a class="sourceLine" id="cb14-14" data-line-number="14">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
-<a class="sourceLine" id="cb14-15" data-line-number="15">}</a>
-<a class="sourceLine" id="cb14-16" data-line-number="16"></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co">#&#39; Recode system time variable</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&#39; Recode system time variable in dataframe containing data from file</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&#39; `gillespie.csv`</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&#39; @param data dataframe containing data from file</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&#39; `gillespie.csv`</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&#39; @return `data` with variable `system_size` recoded for</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&#39; plotting</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">recode_system &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb15-11" data-line-number="11">    <span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb15-12" data-line-number="12">           <span class="dt">system_size =</span> <span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb15-13" data-line-number="13">                                <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb15-14" data-line-number="14">                                <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb15-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb15-16" data-line-number="16"></a></code></pre></div>
 <p><br></p>
 <hr />
 </div>
@@ -706,7 +737,7 @@ annakrystalli
 <div id="build-roxygen-documentation" class="section level3">
 <h3>Build Roxygen documentation</h3>
 <p>Now that we’ve annotated our source code we can <strong>build the documentation</strong> either by clicking on <strong>More &gt; Document</strong> in the RStudio <strong>Build</strong> panel or from the console using:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">document</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">document</span>()</a></code></pre></div>
 <p>This is a wrapper for the <code>roxygenize()</code> function from the roxygen2 package. This builds the <code>.Rd</code> help files and populates the <code>NAMESPACE</code></p>
 <p><br></p>
 <p>The <strong><code>man/</code></strong> directory will now contain an <strong><code>.Rd</code> file for <code>recode_system_size</code></strong>.</p>
@@ -784,7 +815,7 @@ Reloading installed rrcompendium</code></pre>
 <li><p><strong>NOTEs</strong>: Mild problems. If you are submitting to CRAN, you should strive to eliminate all NOTEs, even if they are false positives.</p></li>
 </ul>
 <p>Let’s <strong>Check</strong> our package:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">check</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">check</span>()</a></code></pre></div>
 <pre><code>Status: 1 NOTE
 checking R code for possible problems ... NOTE
 recode_system_size: no visible global function definition for ‘mutate’
@@ -812,12 +843,12 @@ recode_system_size: no visible global function definition for ‘recode’</code
 <div id="add-namespace-to-function-notation" class="section level3">
 <h3>Add namespace to function notation</h3>
 <p>To <strong>specify the namespace of a function</strong> we use the notation <strong><code>&lt;package_name&gt;::&lt;function_name&gt;</code></strong>, so let’s update our function with these details.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">recode_system_size &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">    dplyr<span class="op">::</span><span class="kw">mutate</span>(data,</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3">                  <span class="dt">system_size =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(system_size,</a>
-<a class="sourceLine" id="cb23-4" data-line-number="4">                                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">                                              <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
-<a class="sourceLine" id="cb23-6" data-line-number="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">recode_system_size &lt;-<span class="st"> </span><span class="cf">function</span>(data){</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">    dplyr<span class="op">::</span><span class="kw">mutate</span>(data,</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">                  <span class="dt">system_size =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(system_size,</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">                                              <span class="dt">large =</span> <span class="st">&quot;A. 1000 total sites&quot;</span>,</a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">                                              <span class="dt">small=</span> <span class="st">&quot;B. 100 total sites&quot;</span>))</a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">}</a></code></pre></div>
 <p>Let’s run <strong>Check</strong> again:</p>
 <pre><code>checking dependencies in R code ... WARNING
 &#39;::&#39; or &#39;:::&#39; import not declared from: ‘dplyr’
@@ -836,7 +867,7 @@ R CMD check results
 <h3>Add dependency</h3>
 <p>In this next round of <code>checks</code>, the note about undefined global functions <code>mutate</code> and <code>recode</code> is gone but now we have a <strong>warning</strong> regarding <code>'::' or ':::' import not declared from: ‘dplyr’</code>. It’s flagging the fact that we are wanting to import functions from <code>dplyr</code> but have <strong>not yet declared the package as a dependency</strong> in the <code>Imports</code> field of the <code>DESCRIPTION</code> file.</p>
 <p>We can add <code>dplyr</code> to <code>Imports</code> with:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_package</span>(<span class="st">&quot;dplyr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_package</span>(<span class="st">&quot;dplyr&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
 ✔ Adding &#39;dplyr&#39; to Imports field in DESCRIPTION
 ● Refer to functions with `dplyr::fun()`</code></pre>
@@ -854,9 +885,9 @@ R CMD check results
 <h3>Test out function</h3>
 <p>Run 🔨 <strong>Install and Restart</strong> to ensure the installed package is up to date.</p>
 <p>Then let’s <strong>read in some data and test out our function</strong>:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">library</span>(rrcompendium)</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">library</span>(rrcompendium)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>))</a></code></pre></div>
 <pre><code>Parsed with column specification:
 cols(
   system_size = col_character(),
@@ -866,7 +897,7 @@ cols(
   plus_sd = col_character(),
   minus_sd = col_character()
 )</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">data</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">data</a></code></pre></div>
 <pre><code># A tibble: 10,747 x 6
    system_size     time     n mean  plus_sd minus_sd
    &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
@@ -881,7 +912,7 @@ cols(
  9 large       0.0258     506 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
 10 large       0.0264     507 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
 # ... with 10,737 more rows</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">recode_system_size</span>(data)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">recode_system_size</span>(data)</a></code></pre></div>
 <pre><code># A tibble: 10,747 x 6
    system_size             time     n mean  plus_sd minus_sd
    &lt;chr&gt;                  &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
@@ -915,7 +946,7 @@ cols(
 <div id="create-a-test-file" class="section level3">
 <h3>Create a test file</h3>
 <p>Just like <code>usethis::use_r()</code> for package source code files, we can use <code>usethis::use_test()</code> to create the framework for our tests.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_test</span>(<span class="dt">name =</span> <span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_test</span>(<span class="dt">name =</span> <span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
 ✔ Adding &#39;testthat&#39; to Suggests field in DESCRIPTION
 ✔ Creating &#39;tests/testthat/&#39;
@@ -971,14 +1002,14 @@ analysis</code></pre>
 <div id="create-insttestdata-directory" class="section level5">
 <h5>Create <code>inst/testdata/</code> directory</h5>
 <p>So let’s create <strong>an <code>inst/</code> directory and within it a <code>testdata/</code> subdirectory</strong> to save our example data.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">dir.create</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>), <span class="dt">recursive =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">dir.create</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>), <span class="dt">recursive =</span> T)</a></code></pre></div>
 </div>
 <div id="copy-example-data" class="section level5">
 <h5>Copy example data</h5>
 <p>Now let’s <strong>make a copy of <code>gillespie.csv</code> into the <code>inst/testdata/</code> directory</strong>:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">file.copy</span>(<span class="dt">from =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>), </a>
-<a class="sourceLine" id="cb41-3" data-line-number="3">          <span class="dt">to =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">file.copy</span>(<span class="dt">from =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>), </a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">          <span class="dt">to =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>))</a></code></pre></div>
 <p>You should now have an <code>inst</code> folder containing the following files</p>
 <pre><code>inst
 └── testdata
@@ -988,14 +1019,14 @@ analysis</code></pre>
 <h5>Install and Restart</h5>
 <p>Run 🔨 <strong>Install and Restart</strong> so that <code>testdata/</code> is now <strong>included in the build</strong>.</p>
 <p>We can now <strong>use <code>system.file()</code>, which finds the full file names of files in packages</strong>, in our test script to load our test data set.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">system.file</span>(..., <span class="dt">package =</span> <span class="st">&quot;my_package&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">system.file</span>(..., <span class="dt">package =</span> <span class="st">&quot;my_package&quot;</span>)</a></code></pre></div>
 <p>It uses anything supplied to <code>...</code> to build the path to the file, much like <code>here::here</code>.</p>
 <p>So in <code>test-process-data.R</code>, we can now write:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb44-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a></code></pre></div>
 <p>We can <strong>also use this dataset to provide a working example of <code>recode_system_size(data)</code></strong> in the function documentation. So let’s go back to <code>R/process-data.R</code> and add an example to our documentation</p>
 <pre><code>#&#39; @examples {
 #&#39; data &lt;- readr::read_csv(system.file(&quot;testdata&quot;, &quot;gillespie.csv&quot;,
@@ -1013,36 +1044,36 @@ analysis</code></pre>
 <div id="test-recoding" class="section level4">
 <h4>test recoding</h4>
 <p>First let’s <strong>test that recoding works</strong>, by checking the unique values of <code>system_size</code> after running <code>recode_system_size</code>:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
-<a class="sourceLine" id="cb46-3" data-line-number="3">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
-<a class="sourceLine" id="cb46-4" data-line-number="4">})</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4">})</a></code></pre></div>
 </div>
 <div id="test-dimensions" class="section level4">
 <h4>test dimensions</h4>
 <p>Let’s also test that the <strong>original dimensions of <code>data</code> are preserved</strong> after running our function:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">                 <span class="kw">dim</span>(data))</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">})</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">                 <span class="kw">dim</span>(data))</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">})</a></code></pre></div>
 <p>The complete <code>test-process-data.R</code> file should look like this:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb48-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a>
-<a class="sourceLine" id="cb48-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb48-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
-<a class="sourceLine" id="cb48-8" data-line-number="8">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
-<a class="sourceLine" id="cb48-9" data-line-number="9">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
-<a class="sourceLine" id="cb48-10" data-line-number="10">})</a>
-<a class="sourceLine" id="cb48-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb48-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
-<a class="sourceLine" id="cb48-13" data-line-number="13">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
-<a class="sourceLine" id="cb48-14" data-line-number="14">                 <span class="kw">dim</span>(data))</a>
-<a class="sourceLine" id="cb48-15" data-line-number="15">})</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a>
+<a class="sourceLine" id="cb49-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb49-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
+<a class="sourceLine" id="cb49-8" data-line-number="8">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
+<a class="sourceLine" id="cb49-9" data-line-number="9">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
+<a class="sourceLine" id="cb49-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb49-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb49-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
+<a class="sourceLine" id="cb49-13" data-line-number="13">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
+<a class="sourceLine" id="cb49-14" data-line-number="14">                 <span class="kw">dim</span>(data))</a>
+<a class="sourceLine" id="cb49-15" data-line-number="15">})</a></code></pre></div>
 <p>Because we’re using <code>read_csv</code> from <code>readr</code> in our tests, let’s <strong>add it as a dependency by specifying type <code>Suggests</code></strong>.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">use_package</span>(<span class="st">&quot;readr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">use_package</span>(<span class="st">&quot;readr&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
 ✔ Adding &#39;readr&#39; to Imports field in DESCRIPTION
 ● Refer to functions with `readr::fun()`</code></pre>
@@ -1087,7 +1118,7 @@ Skipped:  0</code></pre>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
