@@ -31,8 +31,9 @@ Familiarity with Version Control through RStudio and rmarkdown.
 
 ### System Requirements:
 
-Pandoc (>= 1.17.2)
-LaTeX
+#### Pandoc (>= 1.17.2)
+
+#### LaTeX
 
 If you don't have LaTeX installed, consider installing `TinyTeX`, a custom LaTeX distribution based on TeX Live that is small in size but functions well in most cases, especially for R users. 
 
@@ -43,9 +44,15 @@ tinytex::install_tinytex()
 
 Check [docs](https://yihui.name/tinytex/) before before installing.
 
-<br>
+
+#### `devtools` requirements
+
+You might also need a set of **development tools** to install and run `devtools`. On **Windows**, download and install [**Rtools**](https://cran.r-project.org/bin/windows/Rtools/), and `devtools` takes care of the rest. On **Mac**, install the [**Xcode**](https://developer.apple.com/xcode/) command line tools. On **Linux**, install the **R development package**, usually called **`r-devel`** or **`r-base-dev`**.
 
 ***
+
+<br>
+
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
