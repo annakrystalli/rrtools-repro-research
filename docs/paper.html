@@ -362,7 +362,10 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://bit.ly/rrtools_wks">Get Workshop Data</a>
+  <a href="https://bit.ly/rrtools_wks">Get Workshop Materials</a>
+</li>
+<li>
+  <a href="https://github.com/annakrystalli/rrcompendium-complete">Final compendium</a>
 </li>
 <li>
   <a href="https://github.com/annakrystalli/rrtools-repro-research">
@@ -391,7 +394,7 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-10-31</p>
+<p><strong>Last updated:</strong> 2018-11-10</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -420,7 +423,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/4d17ca9ea68c6641932f5758279e739d931c67f5" target="_blank">4d17ca9</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/63e35eeae98931a11b79ef7702501bfdce34f4de" target="_blank">63e35ee</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -438,10 +441,6 @@ Untracked files:
     Untracked:  docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
     Untracked:  docs/css/
     Untracked:  libs/
-
-Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/index.Rmd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -472,6 +471,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/63e35eeae98931a11b79ef7702501bfdce34f4de/analysis/paper.Rmd" target="_blank">63e35ee</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-11-10
+</td>
+<td style="text-align:left;">
+add link to complete compendium
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/2c1e9572829c307c3d6921c6bd98d94ecb112597/docs/paper.html" target="_blank">2c1e957</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-10-31
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 html
@@ -612,7 +645,7 @@ abstract: |
   It consists of two paragraphs.
 
 journal: &quot;An awesome journal&quot;
-date: &quot;2018-10-31&quot;
+date: &quot;2018-11-10&quot;
 bibliography: mybibfile.bib
 output: rticles::elsevier_article
 ---</code></pre>
@@ -908,9 +941,61 @@ project CA-B-INS-0162-H.
 <h4>Commit and push to GitHub!</h4>
 </div>
 </div>
+<div id="final-compendium" class="section level2">
+<h2>Final compendium</h2>
+<p>You can see the resulting rrcompendium <a href="https://github.com/annakrystalli/rrcompendium-complete">here</a></p>
+<p>The complete compendium should contain the following files:</p>
+<pre><code>.
+├── CONDUCT.md
+├── CONTRIBUTING.md
+├── DESCRIPTION
+├── LICENSE
+├── LICENSE.md
+├── NAMESPACE
+├── R
+│   └── process-data.R
+├── README.Rmd
+├── README.md
+├── analysis
+│   ├── data
+│   │   ├── DO-NOT-EDIT-ANY-FILES-IN-HERE-BY-HAND
+│   │   ├── derived_data
+│   │   └── raw_data
+│   │       └── gillespie.csv
+│   ├── figures
+│   ├── paper
+│   │   ├── elsarticle.cls
+│   │   ├── mybibfile.bib
+│   │   ├── numcompress.sty
+│   │   ├── paper.Rmd
+│   │   ├── paper.fff
+│   │   ├── paper.pdf
+│   │   ├── paper.spl
+│   │   ├── paper.tex
+│   │   ├── paper_files
+│   │   │   └── figure-latex
+│   │   │       └── figure1-1.pdf
+│   │   └── refs.bib
+│   └── templates
+│       ├── journal-of-archaeological-science.csl
+│       ├── template.Rmd
+│       └── template.docx
+├── inst
+│   └── testdata
+│       └── gillespie.csv
+├── man
+│   └── recode_system_size.Rd
+├── rrcompendium.Rproj
+└── tests
+    ├── testthat
+    │   └── test-process-data.R
+    └── testthat.R
+
+</code></pre>
+</div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
