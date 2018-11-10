@@ -1,3 +1,7 @@
+README.html
+libs/
+docs/assets/*.pdf
+docs/css
 .Rproj.user
 .Rhistory
 .RData
