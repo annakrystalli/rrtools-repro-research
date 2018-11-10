@@ -325,7 +325,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/95a9aa052a95c6afafd5c0aaba87df191bd6c0ed" target="_blank">95a9aa0</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/a6720f8649c536979c3fdb8dbb385364db33a7e2" target="_blank">a6720f8</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -337,12 +337,10 @@ Ignored files:
     Ignored:    analysis/package.Rmd
     Ignored:    assets/
     Ignored:    docs/.DS_Store
-
-Untracked files:
-    Untracked:  docs/assets/Boettiger-2018-Ecology_Letters.pdf
-    Untracked:  docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
-    Untracked:  docs/css/
-    Untracked:  libs/
+    Ignored:    docs/assets/Boettiger-2018-Ecology_Letters.pdf
+    Ignored:    docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
+    Ignored:    docs/css/
+    Ignored:    libs/
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -373,6 +371,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/a6720f8649c536979c3fdb8dbb385364db33a7e2/analysis/index.Rmd" target="_blank">a6720f8</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-11-10
+</td>
+<td style="text-align:left;">
+add devtools and licensing details
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/c1a4359e4fc1771cc7e87560752ab71535092e51/docs/index.html" target="_blank">c1a4359</a>
+</td>
+<td style="text-align:left;">
+annakrystalli
+</td>
+<td style="text-align:left;">
+2018-11-10
+</td>
+<td style="text-align:left;">
+Build site.
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 html
@@ -525,11 +557,30 @@ Start workflowr project.
 </div>
 <div id="system-requirements" class="section level3">
 <h3>System Requirements:</h3>
-<p>Pandoc (&gt;= 1.17.2) LaTeX</p>
+<div id="pandoc-1.17.2" class="section level4">
+<h4>Pandoc (&gt;= 1.17.2)</h4>
+</div>
+<div id="latex" class="section level4">
+<h4>LaTeX</h4>
 <p>If you don’t have LaTeX installed, consider installing <code>TinyTeX</code>, a custom LaTeX distribution based on TeX Live that is small in size but functions well in most cases, especially for R users.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;tinytex&#39;</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">tinytex<span class="op">::</span><span class="kw">install_tinytex</span>()</a></code></pre></div>
 <p>Check <a href="https://yihui.name/tinytex/">docs</a> before before installing.</p>
+</div>
+<div id="devtools-requirements" class="section level4">
+<h4><code>devtools</code> requirements</h4>
+<p>You might also need a set of <strong>development tools</strong> to install and run <code>devtools</code>. On <strong>Windows</strong>, download and install <a href="https://cran.r-project.org/bin/windows/Rtools/"><strong>Rtools</strong></a>, and <code>devtools</code> takes care of the rest. On <strong>Mac</strong>, install the <a href="https://developer.apple.com/xcode/"><strong>Xcode</strong></a> command line tools. On <strong>Linux</strong>, install the <strong>R development package</strong>, usually called <strong><code>r-devel</code></strong> or <strong><code>r-base-dev</code></strong>.</p>
+<hr />
+<p><br></p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+</div>
+</div>
+<div id="work-based-on" class="section level3">
+<h3>Work based on:</h3>
+<ul>
+<li><p>Research compendium <em>cboettig/noise-phenomena: Supplement to: “From noise to knowledge: how randomness generates novel phenomena and reveals information”</em> by <a href="https://github.com/cboettig">Carl Boettiger</a> licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. <a href="https://doi.org/10.5281/zenodo.1219780"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.1219780.svg" alt="DOI" /></a></p></li>
+<li><p>Marwick, B., Boettiger, C. &amp; L. Mullen (2017). <em>Packaging data analytical work reproducibly using R (and friends)</em>. <em>PeerJ Preprints</em> 5:e3192v1 <a href="https://doi.org/10.7287/peerj.preprints.3192v1" class="uri">https://doi.org/10.7287/peerj.preprints.3192v1</a></p></li>
+</ul>
 </div>
 </div>
 <div id="session-information" class="section level2">
