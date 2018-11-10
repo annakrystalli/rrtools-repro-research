@@ -25,6 +25,7 @@ output:
 <br>
 
 
+
 ---
 
 ### Level
@@ -38,8 +39,9 @@ Familiarity with Version Control through RStudio and rmarkdown.
 
 ### System Requirements:
 
-Pandoc (>= 1.17.2)
-LaTeX
+#### Pandoc (>= 1.17.2)
+
+#### LaTeX
 
 If you don't have LaTeX installed, consider installing `TinyTeX`, a custom LaTeX distribution based on TeX Live that is small in size but functions well in most cases, especially for R users. 
 
@@ -49,3 +51,24 @@ tinytex::install_tinytex()
 ```
 
 Check [docs](https://yihui.name/tinytex/) before before installing.
+
+
+#### `devtools` requirements
+
+You might also need a set of **development tools** to install and run `devtools`. On **Windows**, download and install [**Rtools**](https://cran.r-project.org/bin/windows/Rtools/), and `devtools` takes care of the rest. On **Mac**, install the [**Xcode**](https://developer.apple.com/xcode/) command line tools. On **Linux**, install the **R development package**, usually called **`r-devel`** or **`r-base-dev`**.
+
+***
+
+<br>
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+### Work based on:
+
+
+- Research compendium _cboettig/noise-phenomena: Supplement to: "From noise to knowledge: how randomness generates novel phenomena and reveals information"_ by [Carl Boettiger](https://github.com/cboettig) licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1219780.svg)](https://doi.org/10.5281/zenodo.1219780) 
+
+- Marwick, B., Boettiger, C. & L. Mullen (2017). _Packaging data analytical
+work reproducibly using R (and friends)_. *PeerJ Preprints* 5:e3192v1
+<https://doi.org/10.7287/peerj.preprints.3192v1>
