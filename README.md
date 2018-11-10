@@ -1,5 +1,59 @@
 # rrtools-repro-research
 
-## Reproducible Research in R with `rrtools`
+## Reproducible Research in R with [`rrtools`](https://github.com/benmarwick/rrtools)
 
 ### 31st October, Northwest Universities R Day
+
+---
+
+<br>
+
+## **Workshop Outline**
+
+- ### [**Welcome**](https://annakrystalli.me/rrtools-repro-research/intro.html)
+- ### [**Create a Research Compendium**](https://annakrystalli.me/rrtools-repro-research/create-compendium.html)
+- ### [**Manage functionality as a package**](https://annakrystalli.me/rrtools-repro-research/package.html)
+- ### [**Reproduce a paper in Rmd**](https://annakrystalli.me/rrtools-repro-research/paper.html)
+
+<br>
+
+
+---
+
+### Level
+
+Intermediate
+
+### Prerequisites:
+
+Familiarity with Version Control through RStudio and rmarkdown.
+
+
+### System Requirements:
+
+Pandoc (>= 1.17.2)
+LaTeX
+
+If you don't have LaTeX installed, consider installing `TinyTeX`, a custom LaTeX distribution based on TeX Live that is small in size but functions well in most cases, especially for R users. 
+
+```{r, eval=FALSE}
+install.packages('tinytex')
+tinytex::install_tinytex()
+```
+
+Check [docs](https://yihui.name/tinytex/) before before installing.
+
+<br>
+
+***
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+### Work based on:
+
+
+- Research compendium _cboettig/noise-phenomena: Supplement to: "From noise to knowledge: how randomness generates novel phenomena and reveals information"_ by [Carl Boettiger](https://github.com/cboettig) licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1219780.svg)](https://doi.org/10.5281/zenodo.1219780) 
+
+- Marwick, B., Boettiger, C. & L. Mullen (2017). _Packaging data analytical
+work reproducibly using R (and friends)_. *PeerJ Preprints* 5:e3192v1
+<https://doi.org/10.7287/peerj.preprints.3192v1>
