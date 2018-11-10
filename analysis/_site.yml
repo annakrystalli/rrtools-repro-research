@@ -20,8 +20,10 @@ navbar:
         - text: "Create a reproducible paper"
           href: paper.html
   right:
-    - text: "Get Workshop Data"
+    - text: "Get Workshop Materials"
       href: https://bit.ly/rrtools_wks
+    - text: "Final compendium"
+      href: https://github.com/annakrystalli/rrcompendium-complete
     - icon: fa-github
       href: https://github.com/annakrystalli/rrtools-repro-research
 output:

@@ -502,3 +502,60 @@ Imports:
 #### `r emo::ji("hammer")` **Install and Restart**
 
 #### Commit and push to GitHub!
+
+
+## Final compendium
+
+You can see the resulting rrcompendium [here](https://github.com/annakrystalli/rrcompendium-complete)
+
+The complete compendium should contain the following files:
+
+```
+.
+├── CONDUCT.md
+├── CONTRIBUTING.md
+├── DESCRIPTION
+├── LICENSE
+├── LICENSE.md
+├── NAMESPACE
+├── R
+│   └── process-data.R
+├── README.Rmd
+├── README.md
+├── analysis
+│   ├── data
+│   │   ├── DO-NOT-EDIT-ANY-FILES-IN-HERE-BY-HAND
+│   │   ├── derived_data
+│   │   └── raw_data
+│   │       └── gillespie.csv
+│   ├── figures
+│   ├── paper
+│   │   ├── elsarticle.cls
+│   │   ├── mybibfile.bib
+│   │   ├── numcompress.sty
+│   │   ├── paper.Rmd
+│   │   ├── paper.fff
+│   │   ├── paper.pdf
+│   │   ├── paper.spl
+│   │   ├── paper.tex
+│   │   ├── paper_files
+│   │   │   └── figure-latex
+│   │   │       └── figure1-1.pdf
+│   │   └── refs.bib
+│   └── templates
+│       ├── journal-of-archaeological-science.csl
+│       ├── template.Rmd
+│       └── template.docx
+├── inst
+│   └── testdata
+│       └── gillespie.csv
+├── man
+│   └── recode_system_size.Rd
+├── rrcompendium.Rproj
+└── tests
+    ├── testthat
+    │   └── test-process-data.R
+    └── testthat.R
+
+
+```
