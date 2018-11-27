@@ -579,7 +579,7 @@ You're Github repository README should look like this on the site:
 
 ---
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval = F}
 webshot::webshot(url = "https://github.com/annakrystalli/rrcompendium/blob/master/README.md", 
                  file = here::here("docs/assets/README-webshot.png"),
                  cliprect = c( 850, 0, 1000, 920))
