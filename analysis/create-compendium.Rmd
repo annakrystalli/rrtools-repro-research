@@ -558,7 +558,7 @@ You can download the compendium as a zip from from this URL: <https://github.com
 Let's **adjust the data LICENSE to match the source compendium license**, which is CC-BY 4.0. Let's also add Carl Boettiger as copyright holder of the data.
 
 ```
-**Text and figures :**  [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/)
+**Text and figures :**  [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/), Copyright (c) 2018 Carl Boettiger.
 
 **Code :** See the [DESCRIPTION](DESCRIPTION) file
 
