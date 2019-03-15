@@ -375,7 +375,8 @@ You  can **open your `.Renviron` file for editing** with:
 usethis::edit_r_environ()
 ```
 
-**Paste your copied PAT into your `.Renviron`** file as system variable `GITHUB_PAT`, save and close.
+**Paste your copied PAT into your `.Renviron`** file as system variable `GITHUB_PAT`, save and close. Now everytime R is reloaded, your PAT will be stored
+in system variable `GITHUB_PAT`.
 
 <img src="assets/GITHUB_PAT.png" height="300px">
 
@@ -383,10 +384,10 @@ usethis::edit_r_environ()
 
 ### Create GitHub repository
 
-Next, we'll **create a GitHub repository to share our compendium**. We can do this with function:
+Next, we'll **create a GitHub repository to share our compendium**. We'll make use of our `GITHUB_PAT` and go for `https` authentication. We can do this with function:
 
 ```{r}
-usethis::use_github()
+usethis::use_github(protocol = "https")
 ```
 
 ```
@@ -416,7 +417,7 @@ If creation of the repo was successfull you should see the following console out
 ✔ Pushing to GitHub and setting remote tracking branch
 ✔ Opening URL https://github.com/annakrystalli/rrcompendium
 ```
-This
+
 
 <br>
 
