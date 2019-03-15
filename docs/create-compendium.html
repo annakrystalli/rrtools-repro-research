@@ -23,13 +23,12 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
@@ -90,7 +89,29 @@ code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -126,9 +147,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -153,6 +172,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -167,7 +189,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -187,6 +208,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -208,18 +266,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -308,6 +423,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -394,37 +519,113 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-11-27</p>
-<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
-<ul>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
 <li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<a data-toggle="tab" href="#report"> Report <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-04-09
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>rrtools-repro-research/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.2.0). The <em>Report</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="report" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
-</details>
-</li>
-<li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
-</details>
-</li>
-<li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181015)</code> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20181015code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20181015)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20181015code" class="panel-collapse collapse">
+<div class="panel-body">
 <p>The command <code>set.seed(20181015)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
-</details>
-</li>
-<li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
-</details>
-</li>
-<li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/ebde789008c50fec03dbb7b64443798b934c922e" target="_blank">ebde789</a> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreea59b949c9a73273d78e2d93945fa6c42a4f77a24targetblanka59b949a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/a59b949c9a73273d78e2d93945fa6c42a4f77a24" target="_blank">a59b949</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreea59b949c9a73273d78e2d93945fa6c42a4f77a24targetblanka59b949a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
@@ -441,226 +642,287 @@ Ignored files:
     Ignored:    libs/
 
 </code></pre>
+<p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
-</details>
-</li>
-</ul>
-<details>
-<summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
-<ul>
-<table style="border-collapse:separate; border-spacing:5px;">
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 File
 </th>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
-<th style="text-align:left;">
+<th>
 Message
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/a59b949c9a73273d78e2d93945fa6c42a4f77a24/docs/create-compendium.html" target="_blank">a59b949</a>
+</td>
+<td>
+Anna Krystalli
+</td>
+<td>
+2019-03-15
+</td>
+<td>
+update docs
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
-<td style="text-align:left;">
-<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/ebde789008c50fec03dbb7b64443798b934c922e/analysis/create-compendium.Rmd" target="_blank">ebde789</a>
+<td>
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/ad92cb08109d48f5edc61e9a0256085b3a24efef/analysis/create-compendium.Rmd" target="_blank">ad92cb0</a>
 </td>
-<td style="text-align:left;">
+<td>
+Anna Krystalli
+</td>
+<td>
+2019-03-15
+</td>
+<td>
+update use_github instructions
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/f78d1b54c406d262df2918b46577af596af1c930/docs/create-compendium.html" target="_blank">f78d1b5</a>
+</td>
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-11-27
 </td>
-<td style="text-align:left;">
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/ebde789008c50fec03dbb7b64443798b934c922e/analysis/create-compendium.Rmd" target="_blank">ebde789</a>
+</td>
+<td>
+annakrystalli
+</td>
+<td>
+2018-11-27
+</td>
+<td>
 actually save the changes made in previous commit
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/c9513e99bf0906ff726bddddef863c7334882288/docs/create-compendium.html" target="_blank">c9513e9</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/c9513e99bf0906ff726bddddef863c7334882288/docs/create-compendium.html" target="_blank">c9513e9</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-11-27
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 Rmd
 </td>
-<td style="text-align:left;">
+<td>
 <a href="https://github.com/annakrystalli/rrtools-repro-research/blob/241086e5db58771ee6360332c81e7efb8fa7d38d/analysis/create-compendium.Rmd" target="_blank">241086e</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-11-27
 </td>
-<td style="text-align:left;">
+<td>
 add cboettig, deactivate webshot, add
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/95a9aa052a95c6afafd5c0aaba87df191bd6c0ed/docs/create-compendium.html" target="_blank">95a9aa0</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/95a9aa052a95c6afafd5c0aaba87df191bd6c0ed/docs/create-compendium.html" target="_blank">95a9aa0</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-11-10
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/97818bf318067746d2bd9ed9fc7a34580c95f581/docs/create-compendium.html" target="_blank">97818bf</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/97818bf318067746d2bd9ed9fc7a34580c95f581/docs/create-compendium.html" target="_blank">97818bf</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-11-10
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/2c1e9572829c307c3d6921c6bd98d94ecb112597/docs/create-compendium.html" target="_blank">2c1e957</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/2c1e9572829c307c3d6921c6bd98d94ecb112597/docs/create-compendium.html" target="_blank">2c1e957</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-31
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/c26c9360887245207869d7cd79130f334488a96a/docs/create-compendium.html" target="_blank">c26c936</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/c26c9360887245207869d7cd79130f334488a96a/docs/create-compendium.html" target="_blank">c26c936</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-31
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/create-compendium.html" target="_blank">52adf4f</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/create-compendium.html" target="_blank">52adf4f</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-30
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 Rmd
 </td>
-<td style="text-align:left;">
+<td>
 <a href="https://github.com/annakrystalli/rrtools-repro-research/blob/f7c3c51e84da27395cc096b2e4d0a115350abce4/analysis/create-compendium.Rmd" target="_blank">f7c3c51</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-30
 </td>
-<td style="text-align:left;">
+<td>
 commit final draft
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/921a7f864708008758ca207fa2761de380f22642/docs/create-compendium.html" target="_blank">921a7f8</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/921a7f864708008758ca207fa2761de380f22642/docs/create-compendium.html" target="_blank">921a7f8</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-30
 </td>
-<td style="text-align:left;">
+<td>
 commit docs
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 Rmd
 </td>
-<td style="text-align:left;">
+<td>
 <a href="https://github.com/annakrystalli/rrtools-repro-research/blob/f1468acbb039fedf24ab2799ff1ca290f4df46fa/analysis/create-compendium.Rmd" target="_blank">f1468ac</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-30
 </td>
-<td style="text-align:left;">
+<td>
 commit Rmd
 </td>
 </tr>
 </tbody>
 </table>
-</ul>
-</details>
-<hr />
+</div>
+<hr>
+</div>
+</div>
+</div>
 <div id="workshop-setup" class="section level2">
 <h2>Workshop setup</h2>
 <p><br></p>
@@ -902,14 +1164,14 @@ LazyData: true
 <p><strong>Copy the generated PAT</strong> to <strong>paste into your <code>.Renviron</code></strong> file as system variable <strong><code>GITHUB_PAT</code></strong>.</p>
 <p>You can <strong>open your <code>.Renviron</code> file for editing</strong> with:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">edit_r_environ</span>()</a></code></pre></div>
-<p><strong>Paste your copied PAT into your <code>.Renviron</code></strong> file as system variable <code>GITHUB_PAT</code>, save and close.</p>
+<p><strong>Paste your copied PAT into your <code>.Renviron</code></strong> file as system variable <code>GITHUB_PAT</code>, save and close. Now everytime R is reloaded, your PAT will be stored in system variable <code>GITHUB_PAT</code>.</p>
 <p><img src="assets/GITHUB_PAT.png" height="300px"></p>
 <p><br></p>
 </div>
 <div id="create-github-repository" class="section level3">
 <h3>Create GitHub repository</h3>
-<p>Next, we’ll <strong>create a GitHub repository to share our compendium</strong>. We can do this with function:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_github</span>()</a></code></pre></div>
+<p>Next, we’ll <strong>create a GitHub repository to share our compendium</strong>. We’ll make use of our <code>GITHUB_PAT</code> and go for <code>https</code> authentication. We can do this with function:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_github</span>(<span class="dt">protocol =</span> <span class="st">&quot;https&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
 ● Check title and description
   Name:        rrcompendium
@@ -929,7 +1191,6 @@ LazyData: true
 ✔ Setting BugReports field in DESCRIPTION to &#39;https://github.com/annakrystalli/rrcompendium/issues&#39;
 ✔ Pushing to GitHub and setting remote tracking branch
 ✔ Opening URL https://github.com/annakrystalli/rrcompendium</code></pre>
-<p>This</p>
 <p><br></p>
 </div>
 <div id="create-readme" class="section level3">
@@ -976,14 +1237,14 @@ This repository contains the data and code for our paper:
 
 Our pre-print is online here:
 
-&gt; Authors, (YYYY). _Title of paper_. Name of journal/book, Accessed 27 Nov 2018. Online at &lt;https://doi.org/xxx/xxx&gt;
+&gt; Authors, (YYYY). _Title of paper_. Name of journal/book, Accessed 09 Apr 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
 
 
 ### How to cite
 
 Please cite this compendium as:
 
-&gt; Authors, (2018). _Compendium of R code and data for &#39;Title of paper&#39;_. Accessed 27 Nov 2018. Online at &lt;https://doi.org/xxx/xxx&gt;
+&gt; Authors, (2019). _Compendium of R code and data for &#39;Title of paper&#39;_. Accessed 09 Apr 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
 
 ### How to download or install
 
@@ -1024,14 +1285,14 @@ We welcome contributions from everyone. Before you get started, please see our [
 <h4>edit paper.pdf DOI</h4>
 <pre><code>Our reproduction pre-print is online here:
 
-&gt; Krystalli, A, (2018). _Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools_, Accessed 27 Nov 2018. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;
+&gt; Krystalli, A, (2018). _Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools_, Accessed 09 Apr 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;
 </code></pre>
 </div>
 <div id="edit-compendium-citation" class="section level4">
 <h4>edit compendium citation</h4>
 <pre><code>Please cite this compendium as:
 
-&gt; Krystalli, A, (2018). _Compendium of R code and data for &#39;Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools&#39;_. Accessed 27 Nov 2018. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;</code></pre>
+&gt; Krystalli, A, (2019). _Compendium of R code and data for &#39;Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools&#39;_. Accessed 09 Apr 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;</code></pre>
 </div>
 <div id="update-zip-url" class="section level4">
 <h4>update zip url</h4>
@@ -1150,14 +1411,19 @@ Note that:
 <p>We can replace the supplied <code>csl</code> file with a different citation style from <a href="https://github.com/citation-style-language/" class="uri">https://github.com/citation-style-language/</a></p>
 <p><br></p>
 <hr />
-<p>Next, let’s set up functionality as a <a href="package.html">package</a>!</p>
-</div>
-</div>
-</div>
-<div id="session-information" class="section level2">
-<h2>Session information</h2>
+Next, let’s set up functionality as a <a href="package.html">package</a>! <br> <br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 </div>
+</div>
+</div>
+</div>
+
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
@@ -1170,14 +1436,6 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
-
-<hr>
-<p>
-  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-  analysis was created with
-  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
-</p>
-<hr>
 
 
 </div>
