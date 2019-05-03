@@ -23,13 +23,12 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
@@ -90,7 +89,29 @@ code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -126,9 +147,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -153,6 +172,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -167,7 +189,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -187,6 +208,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -208,18 +266,75 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -308,6 +423,16 @@ div.tocify {
 
 </style>
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row-fluid">
 <div class="col-xs-12 col-sm-4 col-md-3">
@@ -394,36 +519,113 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-11-10</p>
-<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
-<ul>
-<li>
-<details>
-<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is ignored by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
-</details>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-05-03
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>rrtools-repro-research/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.3.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is ignored by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
-</details>
-</li>
-<li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181015)</code> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20181015code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20181015)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20181015code" class="panel-collapse collapse">
+<div class="panel-body">
 <p>The command <code>set.seed(20181015)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
-</details>
-</li>
-<li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
-</details>
-</li>
-<li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/41b8aa2d4ae3458a64ffde14dade67c01b212706" target="_blank">41b8aa2</a> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreef7b42e553e31d8c4f0461a15d441f806b69820e8targetblankf7b42e5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/f7b42e553e31d8c4f0461a15d441f806b69820e8" target="_blank">f7b42e5</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreef7b42e553e31d8c4f0461a15d441f806b69820e8targetblankf7b42e5a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
@@ -434,132 +636,157 @@ Ignored files:
     Ignored:    analysis/package.Rmd
     Ignored:    assets/
     Ignored:    docs/.DS_Store
-
-Untracked files:
-    Untracked:  docs/assets/Boettiger-2018-Ecology_Letters.pdf
-    Untracked:  docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
-    Untracked:  docs/css/
-    Untracked:  libs/
+    Ignored:    docs/assets/Boettiger-2018-Ecology_Letters.pdf
+    Ignored:    docs/assets/Packaging-Data-Analytical Work-Reproducibly-Using-R-and-Friends.pdf
+    Ignored:    docs/css/
+    Ignored:    libs/
 
 </code></pre>
+<p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
-</details>
-</li>
-</ul>
-<details>
-<summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
-<ul>
-<table style="border-collapse:separate; border-spacing:5px;">
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 File
 </th>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
-<th style="text-align:left;">
+<th>
 Message
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/97818bf318067746d2bd9ed9fc7a34580c95f581/docs/package.html" target="_blank">97818bf</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/95a9aa052a95c6afafd5c0aaba87df191bd6c0ed/docs/package.html" target="_blank">95a9aa0</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-11-10
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/2c1e9572829c307c3d6921c6bd98d94ecb112597/docs/package.html" target="_blank">2c1e957</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/97818bf318067746d2bd9ed9fc7a34580c95f581/docs/package.html" target="_blank">97818bf</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
+2018-11-10
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/2c1e9572829c307c3d6921c6bd98d94ecb112597/docs/package.html" target="_blank">2c1e957</a>
+</td>
+<td>
+annakrystalli
+</td>
+<td>
 2018-10-31
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/c26c9360887245207869d7cd79130f334488a96a/docs/package.html" target="_blank">c26c936</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/c26c9360887245207869d7cd79130f334488a96a/docs/package.html" target="_blank">c26c936</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-31
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/package.html" target="_blank">52adf4f</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/package.html" target="_blank">52adf4f</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-30
 </td>
-<td style="text-align:left;">
+<td>
 Build site.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/annakrystalli/rrtools-repro-research/921a7f864708008758ca207fa2761de380f22642/docs/package.html" target="_blank">921a7f8</a>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/921a7f864708008758ca207fa2761de380f22642/docs/package.html" target="_blank">921a7f8</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-30
 </td>
-<td style="text-align:left;">
+<td>
 commit docs
 </td>
 </tr>
 </tbody>
 </table>
-</ul>
-</details>
-<hr />
+</div>
+<hr>
+</div>
+</div>
+</div>
 <p><strong><code>rrtools</code> research compendium structure is based on R packages</strong>.</p>
 <p>The <strong>R package structure</strong> can help with providing a logical organisation of files, by <strong>providing a set of standard locations for certain types of files</strong>.</p>
 <p>To work with packages in RStudio we use the <strong>Build pane</strong>, which includes a variety of tools for <strong>building, documenting and testing packages</strong>. This will appear if Rstudio recognises the project as an R package.</p>
@@ -607,37 +834,43 @@ commit docs
 <a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> n), <span class="dt">col=</span>colours[<span class="dv">1</span>]) <span class="op">+</span></a>
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>system_size, <span class="dt">scales =</span> <span class="st">&quot;free_y&quot;</span>) </a></code></pre></div>
 <p><img src="figure/package.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<details>
-<summary><em>Expand here to see past versions of unnamed-chunk-5-1.png:</em></summary>
-<table style = "border-collapse:separate; border-spacing:5px;">
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td>
 <a href="https://github.com/annakrystalli/rrtools-repro-research/blob/52adf4f0c35dc3fc2b7d57ade327271f3565dd7b/docs/figure/package.Rmd/unnamed-chunk-5-1.png" target="_blank">52adf4f</a>
 </td>
-<td style="text-align:left;">
+<td>
 annakrystalli
 </td>
-<td style="text-align:left;">
+<td>
 2018-10-30
 </td>
 </tr>
 </tbody>
 </table>
-</details>
+</div>
+</div>
 <p>In this section, we’re going <strong>create a simple function to replace the recoding step in the analysis</strong>, document it, check it, test and make it available as a package!</p>
 <p><br></p>
 <hr />
@@ -925,41 +1158,50 @@ R CMD check results
 cols(
   system_size = col_character(),
   time = col_double(),
-  n = col_integer(),
-  mean = col_character(),
-  plus_sd = col_character(),
-  minus_sd = col_character()
+  n = col_double(),
+  mean = col_logical(),
+  plus_sd = col_logical(),
+  minus_sd = col_logical()
 )</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">data</a></code></pre></div>
+<pre><code>Warning: 6 parsing failures.
+  row      col           expected            actual                                                                                                    file
+10746 mean     1/0/T/F/TRUE/FALSE 80                &#39;/Users/Anna/Documents/workflows/workshops/rrtools-repro-research/analysis/data/raw_data/gillespie.csv&#39;
+10746 plus_sd  1/0/T/F/TRUE/FALSE 84.47213595499957 &#39;/Users/Anna/Documents/workflows/workshops/rrtools-repro-research/analysis/data/raw_data/gillespie.csv&#39;
+10746 minus_sd 1/0/T/F/TRUE/FALSE 75.52786404500043 &#39;/Users/Anna/Documents/workflows/workshops/rrtools-repro-research/analysis/data/raw_data/gillespie.csv&#39;
+10747 mean     1/0/T/F/TRUE/FALSE 800               &#39;/Users/Anna/Documents/workflows/workshops/rrtools-repro-research/analysis/data/raw_data/gillespie.csv&#39;
+10747 plus_sd  1/0/T/F/TRUE/FALSE 814.142135623731  &#39;/Users/Anna/Documents/workflows/workshops/rrtools-repro-research/analysis/data/raw_data/gillespie.csv&#39;
+..... ........ .................. ................. .......................................................................................................
+See problems(...) for more details.</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">data</a></code></pre></div>
 <pre><code># A tibble: 10,747 x 6
    system_size     time     n mean  plus_sd minus_sd
-   &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
- 1 large       0.         500 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 2 large       0.000359   501 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 3 large       0.00680    502 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 4 large       0.00818    503 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 5 large       0.0199     504 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 6 large       0.0207     505 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 7 large       0.0222     504 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 8 large       0.0242     505 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 9 large       0.0258     506 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
-10 large       0.0264     507 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
-# ... with 10,737 more rows</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">recode_system_size</span>(data)</a></code></pre></div>
+   &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt;   &lt;lgl&gt;   
+ 1 large       0          500 NA    NA      NA      
+ 2 large       0.000359   501 NA    NA      NA      
+ 3 large       0.00680    502 NA    NA      NA      
+ 4 large       0.00818    503 NA    NA      NA      
+ 5 large       0.0199     504 NA    NA      NA      
+ 6 large       0.0207     505 NA    NA      NA      
+ 7 large       0.0222     504 NA    NA      NA      
+ 8 large       0.0242     505 NA    NA      NA      
+ 9 large       0.0258     506 NA    NA      NA      
+10 large       0.0264     507 NA    NA      NA      
+# … with 10,737 more rows</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">recode_system_size</span>(data)</a></code></pre></div>
 <pre><code># A tibble: 10,747 x 6
    system_size             time     n mean  plus_sd minus_sd
-   &lt;chr&gt;                  &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   
- 1 A. 1000 total sites 0.         500 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 2 A. 1000 total sites 0.000359   501 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 3 A. 1000 total sites 0.00680    502 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 4 A. 1000 total sites 0.00818    503 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 5 A. 1000 total sites 0.0199     504 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 6 A. 1000 total sites 0.0207     505 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 7 A. 1000 total sites 0.0222     504 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 8 A. 1000 total sites 0.0242     505 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
- 9 A. 1000 total sites 0.0258     506 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
-10 A. 1000 total sites 0.0264     507 &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    
-# ... with 10,737 more rows</code></pre>
+   &lt;chr&gt;                  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt;   &lt;lgl&gt;   
+ 1 A. 1000 total sites 0          500 NA    NA      NA      
+ 2 A. 1000 total sites 0.000359   501 NA    NA      NA      
+ 3 A. 1000 total sites 0.00680    502 NA    NA      NA      
+ 4 A. 1000 total sites 0.00818    503 NA    NA      NA      
+ 5 A. 1000 total sites 0.0199     504 NA    NA      NA      
+ 6 A. 1000 total sites 0.0207     505 NA    NA      NA      
+ 7 A. 1000 total sites 0.0222     504 NA    NA      NA      
+ 8 A. 1000 total sites 0.0242     505 NA    NA      NA      
+ 9 A. 1000 total sites 0.0258     506 NA    NA      NA      
+10 A. 1000 total sites 0.0264     507 NA    NA      NA      
+# … with 10,737 more rows</code></pre>
 <div id="it-works" class="section level4">
 <h4>It works! 🎉</h4>
 <p><br></p>
@@ -979,7 +1221,7 @@ cols(
 <div id="create-a-test-file" class="section level3">
 <h3>Create a test file</h3>
 <p>Just like <code>usethis::use_r()</code> for package source code files, we can use <code>usethis::use_test()</code> to create the framework for our tests.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_test</span>(<span class="dt">name =</span> <span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_test</span>(<span class="dt">name =</span> <span class="st">&quot;process-data&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
 ✔ Adding &#39;testthat&#39; to Suggests field in DESCRIPTION
 ✔ Creating &#39;tests/testthat/&#39;
@@ -1035,14 +1277,14 @@ analysis</code></pre>
 <div id="create-insttestdata-directory" class="section level5">
 <h5>Create <code>inst/testdata/</code> directory</h5>
 <p>So let’s create <strong>an <code>inst/</code> directory and within it a <code>testdata/</code> subdirectory</strong> to save our example data.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">dir.create</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>), <span class="dt">recursive =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">dir.create</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>), <span class="dt">recursive =</span> T)</a></code></pre></div>
 </div>
 <div id="copy-example-data" class="section level5">
 <h5>Copy example data</h5>
 <p>Now let’s <strong>make a copy of <code>gillespie.csv</code> into the <code>inst/testdata/</code> directory</strong>:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">file.copy</span>(<span class="dt">from =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>), </a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">          <span class="dt">to =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">file.copy</span>(<span class="dt">from =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;analysis&quot;</span>, <span class="st">&quot;data&quot;</span>,</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">                           <span class="st">&quot;raw_data&quot;</span>, <span class="st">&quot;gillespie.csv&quot;</span>), </a>
+<a class="sourceLine" id="cb43-3" data-line-number="3">          <span class="dt">to =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;inst&quot;</span>, <span class="st">&quot;testdata&quot;</span>))</a></code></pre></div>
 <p>You should now have an <code>inst</code> folder containing the following files</p>
 <pre><code>inst
 └── testdata
@@ -1052,14 +1294,14 @@ analysis</code></pre>
 <h5>Install and Restart</h5>
 <p>Run 🔨 <strong>Install and Restart</strong> so that <code>testdata/</code> is now <strong>included in the build</strong>.</p>
 <p>We can now <strong>use <code>system.file()</code>, which finds the full file names of files in packages</strong>, in our test script to load our test data set.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">system.file</span>(..., <span class="dt">package =</span> <span class="st">&quot;my_package&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">system.file</span>(..., <span class="dt">package =</span> <span class="st">&quot;my_package&quot;</span>)</a></code></pre></div>
 <p>It uses anything supplied to <code>...</code> to build the path to the file, much like <code>here::here</code>.</p>
 <p>So in <code>test-process-data.R</code>, we can now write:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a></code></pre></div>
 <p>We can <strong>also use this dataset to provide a working example of <code>recode_system_size(data)</code></strong> in the function documentation. So let’s go back to <code>R/process-data.R</code> and add an example to our documentation</p>
 <pre><code>#&#39; @examples {
 #&#39; data &lt;- readr::read_csv(system.file(&quot;testdata&quot;, &quot;gillespie.csv&quot;,
@@ -1077,36 +1319,36 @@ analysis</code></pre>
 <div id="test-recoding" class="section level4">
 <h4>test recoding</h4>
 <p>First let’s <strong>test that recoding works</strong>, by checking the unique values of <code>system_size</code> after running <code>recode_system_size</code>:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
-<a class="sourceLine" id="cb47-3" data-line-number="3">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
-<a class="sourceLine" id="cb47-4" data-line-number="4">})</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">})</a></code></pre></div>
 </div>
 <div id="test-dimensions" class="section level4">
 <h4>test dimensions</h4>
 <p>Let’s also test that the <strong>original dimensions of <code>data</code> are preserved</strong> after running our function:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
-<a class="sourceLine" id="cb48-3" data-line-number="3">                 <span class="kw">dim</span>(data))</a>
-<a class="sourceLine" id="cb48-4" data-line-number="4">})</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">                 <span class="kw">dim</span>(data))</a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">})</a></code></pre></div>
 <p>The complete <code>test-process-data.R</code> file should look like this:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb49-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
-<a class="sourceLine" id="cb49-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb49-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a>
-<a class="sourceLine" id="cb49-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb49-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
-<a class="sourceLine" id="cb49-8" data-line-number="8">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
-<a class="sourceLine" id="cb49-9" data-line-number="9">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
-<a class="sourceLine" id="cb49-10" data-line-number="10">})</a>
-<a class="sourceLine" id="cb49-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb49-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
-<a class="sourceLine" id="cb49-13" data-line-number="13">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
-<a class="sourceLine" id="cb49-14" data-line-number="14">                 <span class="kw">dim</span>(data))</a>
-<a class="sourceLine" id="cb49-15" data-line-number="15">})</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">context</span>(<span class="st">&quot;test-process-data&quot;</span>)</a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3">data &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="kw">system.file</span>(<span class="st">&quot;testdata&quot;</span>,</a>
+<a class="sourceLine" id="cb50-4" data-line-number="4">                                    <span class="st">&quot;gillespie.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb50-5" data-line-number="5">                                    <span class="dt">package =</span> <span class="st">&quot;rrcompendium&quot;</span>))</a>
+<a class="sourceLine" id="cb50-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb50-7" data-line-number="7"><span class="kw">test_that</span>(<span class="st">&quot;recoding works&quot;</span>, {</a>
+<a class="sourceLine" id="cb50-8" data-line-number="8">  <span class="kw">expect_equal</span>(<span class="kw">unique</span>(<span class="kw">recode_system_size</span>(data)<span class="op">$</span>system_size),</a>
+<a class="sourceLine" id="cb50-9" data-line-number="9">               <span class="kw">c</span>(<span class="st">&quot;A. 1000 total sites&quot;</span>, <span class="st">&quot;B. 100 total sites&quot;</span> ))</a>
+<a class="sourceLine" id="cb50-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb50-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb50-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;data dims preserved&quot;</span>, {</a>
+<a class="sourceLine" id="cb50-13" data-line-number="13">    <span class="kw">expect_equal</span>(<span class="kw">dim</span>(<span class="kw">recode_system_size</span>(data)),</a>
+<a class="sourceLine" id="cb50-14" data-line-number="14">                 <span class="kw">dim</span>(data))</a>
+<a class="sourceLine" id="cb50-15" data-line-number="15">})</a></code></pre></div>
 <p>Because we’re using <code>read_csv</code> from <code>readr</code> in our tests, let’s <strong>add it as a dependency by specifying type <code>Suggests</code></strong>.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">use_package</span>(<span class="st">&quot;readr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">use_package</span>(<span class="st">&quot;readr&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting active project to &#39;/Users/Anna/Documents/workflows/rrcompendium&#39;
 ✔ Adding &#39;readr&#39; to Imports field in DESCRIPTION
 ● Refer to functions with `readr::fun()`</code></pre>
@@ -1146,13 +1388,19 @@ Skipped:  0</code></pre>
 <h5>Our tests pass!! 🎉</h5>
 <p>Now <strong>every time you check your package, the test will also be run automatically</strong>.</p>
 <p>Let’s commit our work and move on.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 </div>
 </div>
 </div>
-<div id="session-information" class="section level2">
-<h2>Session information</h2>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 </div>
+
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
@@ -1165,14 +1413,6 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
-
-<hr>
-<p>
-  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-  analysis was created with
-  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
-</p>
-<hr>
 
 
 </div>

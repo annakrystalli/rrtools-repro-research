@@ -266,7 +266,6 @@ $(document).ready(function () {
 });
 </script>
 
-<<<<<<< HEAD
 <!-- tabsets -->
 
 <style type="text/css">
@@ -323,66 +322,6 @@ $(document).ready(function () {
 }
 </style>
 
-=======
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -591,7 +530,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#report"> Report <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -600,11 +539,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<<<<<<< HEAD
-<strong>Last updated:</strong> 2019-04-09
-=======
-<strong>Last updated:</strong> 2019-03-15
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
+<strong>Last updated:</strong> 2019-05-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -614,11 +549,11 @@ div.section {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.2.0). The <em>Report</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.3.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
-<div id="report" class="tab-pane fade">
+<div id="checks" class="tab-pane fade">
 <div id="workflowr-checks" class="panel-group">
 <div class="panel panel-default">
 <div class="panel-heading">
@@ -683,17 +618,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<<<<<<< HEAD
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreea59b949c9a73273d78e2d93945fa6c42a4f77a24targetblanka59b949a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/a59b949c9a73273d78e2d93945fa6c42a4f77a24" target="_blank">a59b949</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreef7b42e553e31d8c4f0461a15d441f806b69820e8targetblankf7b42e5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/f7b42e553e31d8c4f0461a15d441f806b69820e8" target="_blank">f7b42e5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreea59b949c9a73273d78e2d93945fa6c42a4f77a24targetblanka59b949a" class="panel-collapse collapse">
-=======
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreead92cb08109d48f5edc61e9a0256085b3a24efeftargetblankad92cb0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/annakrystalli/rrtools-repro-research/tree/ad92cb08109d48f5edc61e9a0256085b3a24efef" target="_blank">ad92cb0</a> </a>
-</p>
-</div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreead92cb08109d48f5edc61e9a0256085b3a24efeftargetblankad92cb0a" class="panel-collapse collapse">
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomannakrystallirrtoolsreproresearchtreef7b42e553e31d8c4f0461a15d441f806b69820e8targetblankf7b42e5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -752,7 +680,57 @@ Message
 <tbody>
 <tr>
 <td>
-<<<<<<< HEAD
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/f7b42e553e31d8c4f0461a15d441f806b69820e8/docs/create-compendium.html" target="_blank">f7b42e5</a>
+</td>
+<td>
+annakrystalli
+</td>
+<td>
+2019-05-03
+</td>
+<td>
+address merge conflict
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/c0b47a4cadf4086dd39a29d5d70b5183d792f5d1/analysis/create-compendium.Rmd" target="_blank">c0b47a4</a>
+</td>
+<td>
+Ania Tassinari
+</td>
+<td>
+2019-05-03
+</td>
+<td>
+Add example <code>name</code> parameter for use_mit_license()
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/6fa5089df973addfd0bc0b838eb0c07334fba8c8/docs/create-compendium.html" target="_blank">6fa5089</a>
+</td>
+<td>
+Anna Krystalli
+</td>
+<td>
+2019-03-15
+</td>
+<td>
+update navbar
+</td>
+</tr>
+<tr>
+<td>
 html
 </td>
 <td>
@@ -807,45 +785,6 @@ Build site.
 Rmd
 </td>
 <td>
-=======
-Rmd
-</td>
-<td>
-<a href="https://github.com/annakrystalli/rrtools-repro-research/blob/ad92cb08109d48f5edc61e9a0256085b3a24efef/analysis/create-compendium.Rmd" target="_blank">ad92cb0</a>
-</td>
-<td>
-Anna Krystalli
-</td>
-<td>
-2019-03-15
-</td>
-<td>
-update use_github instructions
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/annakrystalli/rrtools-repro-research/f78d1b54c406d262df2918b46577af596af1c930/docs/create-compendium.html" target="_blank">f78d1b5</a>
-</td>
-<td>
-annakrystalli
-</td>
-<td>
-2018-11-27
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
 <a href="https://github.com/annakrystalli/rrtools-repro-research/blob/ebde789008c50fec03dbb7b64443798b934c922e/analysis/create-compendium.Rmd" target="_blank">ebde789</a>
 </td>
 <td>
@@ -1219,7 +1158,7 @@ LazyData: true
 <div id="license" class="section level3">
 <h3>License</h3>
 <p>Finally, let’s <strong>add a license for the material we create</strong>. We’ll use an <a href="https://opensource.org/licenses/MIT"><strong>MIT license</strong></a>. Note however that <strong>his only covers the code</strong>. We can do this with:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"> usethis<span class="op">::</span><span class="kw">use_mit_license</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"> usethis<span class="op">::</span><span class="kw">use_mit_license</span>(<span class="dt">name =</span> <span class="st">&quot;My Name&quot;</span>)</a></code></pre></div>
 <pre><code>✔ Setting License field in DESCRIPTION to &#39;MIT + file LICENSE&#39;
 ✔ Writing &#39;LICENSE.md&#39;
 ✔ Adding &#39;^LICENSE\\.md$&#39; to &#39;.Rbuildignore&#39;</code></pre>
@@ -1349,22 +1288,14 @@ This repository contains the data and code for our paper:
 
 Our pre-print is online here:
 
-<<<<<<< HEAD
-&gt; Authors, (YYYY). _Title of paper_. Name of journal/book, Accessed 09 Apr 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
-=======
-&gt; Authors, (YYYY). _Title of paper_. Name of journal/book, Accessed 15 Mar 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
+&gt; Authors, (YYYY). _Title of paper_. Name of journal/book, Accessed 03 May 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
 
 
 ### How to cite
 
 Please cite this compendium as:
 
-<<<<<<< HEAD
-&gt; Authors, (2019). _Compendium of R code and data for &#39;Title of paper&#39;_. Accessed 09 Apr 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
-=======
-&gt; Authors, (2019). _Compendium of R code and data for &#39;Title of paper&#39;_. Accessed 15 Mar 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
+&gt; Authors, (2019). _Compendium of R code and data for &#39;Title of paper&#39;_. Accessed 03 May 2019. Online at &lt;https://doi.org/xxx/xxx&gt;
 
 ### How to download or install
 
@@ -1405,22 +1336,14 @@ We welcome contributions from everyone. Before you get started, please see our [
 <h4>edit paper.pdf DOI</h4>
 <pre><code>Our reproduction pre-print is online here:
 
-<<<<<<< HEAD
-&gt; Krystalli, A, (2018). _Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools_, Accessed 09 Apr 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;
-=======
-&gt; Krystalli, A, (2018). _Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools_, Accessed 15 Mar 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
+&gt; Krystalli, A, (2018). _Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools_, Accessed 03 May 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;
 </code></pre>
 </div>
 <div id="edit-compendium-citation" class="section level4">
 <h4>edit compendium citation</h4>
 <pre><code>Please cite this compendium as:
 
-<<<<<<< HEAD
-&gt; Krystalli, A, (2019). _Compendium of R code and data for &#39;Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools&#39;_. Accessed 09 Apr 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;</code></pre>
-=======
-&gt; Krystalli, A, (2019). _Compendium of R code and data for &#39;Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools&#39;_. Accessed 15 Mar 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;</code></pre>
->>>>>>> ec994c25d06e3efd0559a1f2fed29537dd18c983
+&gt; Krystalli, A, (2019). _Compendium of R code and data for &#39;Partial Reproduction of Boettiger Ecology Letters 2018;21:1255–1267 with rrtools&#39;_. Accessed 03 May 2019. Online at &lt;https://doi.org/{DOI-to-compendium}&gt;</code></pre>
 </div>
 <div id="update-zip-url" class="section level4">
 <h4>update zip url</h4>
@@ -1539,7 +1462,8 @@ Note that:
 <p>We can replace the supplied <code>csl</code> file with a different citation style from <a href="https://github.com/citation-style-language/" class="uri">https://github.com/citation-style-language/</a></p>
 <p><br></p>
 <hr />
-Next, let’s set up functionality as a <a href="package.html">package</a>! <br> <br>
+<p>Next, let’s set up functionality as a <a href="package.html">package</a>!</p>
+<br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
 <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
