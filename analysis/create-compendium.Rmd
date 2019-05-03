@@ -283,7 +283,7 @@ Description: This repository contains the research compendium of the
 Finally, let's **add a license for the material we create**. We'll use an [**MIT license**](https://opensource.org/licenses/MIT). Note however that **his only covers the code**. We can do this with:
 
 ```{r}
- usethis::use_mit_license()
+ usethis::use_mit_license(name = "My Name")
 ```
 
 ```
